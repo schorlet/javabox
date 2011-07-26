@@ -1,0 +1,39 @@
+openssl s_server -accept 8443 -www -state -Verify 2 \
+-cert /tmp/localhost.pem \
+-key /tmp/localhost.key \
+-CApath /tmp \
+-CAfile /tmp/ca.pem
+
+openssl s_client -connect localhost:8443 -state -verify 2 -showcerts \
+-cert /tmp/bali.pem \
+-key /tmp/bali.key \
+-CApath /tmp \
+-CAfile /tmp/ca.pem
+GET /
+
+wget https://localhost:8443/ --certificate=/home/sch/dev/tomcat/client/apacheclient.pem --private-key=/home/sch/dev/tomcat/client/apacheclient.key --ca-certificate=/home/sch/dev/tomcat/ca/ca-washingmachine/cacert.pem
+wget https://localhost:8443/ --certificate=/tmp/bali.pem --private-key=/tmp/bali.key --ca-certificate=/tmp/ca.pem
+----------------------------------------------------------------------------
+
+mvn exec:java -Dexec.mainClass=demo.b.SslServer \
+-Djavax.net.ssl.trustStore=/tmp/ca.p12 \
+-Djavax.net.ssl.trustStorePassword=rootca \
+-Djavax.net.ssl.trustStoreType=pkcs12 \
+-Djavax.net.ssl.keyStore=/tmp/localhost.p12 \
+-Djavax.net.ssl.keyStorePassword=localhost \
+-Djavax.net.ssl.keyStoreType=pkcs12 \
+-Djavax.net.debug=ssl
+
+mvn exec:java -Dexec.mainClass=demo.b.SslClient \
+-Djavax.net.ssl.trustStore=/tmp/ca.p12 \
+-Djavax.net.ssl.trustStorePassword=rootca \
+-Djavax.net.ssl.trustStoreType=pkcs12 \
+-Djavax.net.ssl.keyStore=/tmp/bali.p12 \
+-Djavax.net.ssl.keyStorePassword=bali \
+-Djavax.net.ssl.keyStoreType=pkcs12 \
+-Djavax.net.debug=ssl
+
+----------------------------------------------------------------------------
+
+mvn exec:java -Dexec.mainClass=demo.b.Listing
+
