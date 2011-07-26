@@ -1,0 +1,12 @@
+JCA: http://java.sun.com/javase/6/docs//technotes/guides/security/crypto/CryptoSpec.html
+La JCA est constituée des packages java.security.*
+
+concepts de sécurité:
+identité, clé asymétrique, digest (condensé de message), certificat, signature, permission, politique de sécurité, contrôle d'accès.
+
+JCE: http://java.sun.com/products/jce/
+La JCE inclut le package javax.crypto
+Fournir des fonctionnalités cryptographiques sensibles (non exportables en-dehors des USA).
+
+fonctionnalités cryptographiques:
+chiffrement, clé symétrique, contrôle d'integrité (MAC)
