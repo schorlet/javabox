@@ -1,0 +1,159 @@
+oid_section                       = new_oids
+
+[ new_oids ]
+# Policies used by the TSA examples.
+tsa_policy1                       = 1.2.3.4.1
+tsa_policy2                       = 1.2.3.4.5.6
+tsa_policy3                       = 1.2.3.4.5.7
+
+[ ca ]
+default_ca                        = CA_default
+
+[ CA_default ]
+dir                               = $ENV::OPENSSL_DIR
+serial                            = $dir/serial
+database                          = $dir/index.txt
+
+certificate                       = $dir/cacert.pem
+private_key                       = $dir/private/cacert.key
+crl                               = $dir/crl.pem
+
+new_certs_dir                     = $dir/newcerts
+
+default_days                      = 365
+default_crl_days                  = 30
+default_md                        = md5
+copy_extensions                   = none
+
+policy                            = policy_match
+x509_extensions                   = v3_ca
+req_extensions                    = req
+crl_extensions                    = crl_ext
+
+[ v3_ca ]
+basicConstraints                  = critical,CA:true,pathlen:0
+subjectKeyIdentifier              = hash
+authorityKeyIdentifier            = keyid, issuer
+keyUsage                          = keyCertSign, cRLSign
+
+[ v3_ocsp ]
+basicConstraints                  = CA:false
+subjectKeyIdentifier              = hash
+authorityKeyIdentifier            = keyid:always, issuer:always
+extendedKeyUsage                  = OCSPSigning
+crlDistributionPoints             = $ENV::OPENSSL_CRL_DP
+
+[ v3_server ]
+basicConstraints                  = CA:false
+subjectKeyIdentifier              = hash
+authorityKeyIdentifier            = keyid:always, issuer:always
+keyUsage                          = keyAgreement, keyEncipherment
+extendedKeyUsage                  = serverAuth
+crlDistributionPoints             = $ENV::OPENSSL_CRL_DP
+authorityInfoAccess               = $ENV::OPENSSL_OCSP
+
+[ v3_client_ssl ]
+basicConstraints                  = CA:false
+subjectKeyIdentifier              = hash
+authorityKeyIdentifier            = keyid:always, issuer:always
+keyUsage                          = digitalSignature, nonRepudiation
+extendedKeyUsage                  = clientAuth
+crlDistributionPoints             = $ENV::OPENSSL_CRL_DP
+authorityInfoAccess               = $ENV::OPENSSL_OCSP
+
+[ v3_client_signing ]
+basicConstraints                  = CA:false
+subjectKeyIdentifier              = hash
+authorityKeyIdentifier            = keyid:always, issuer:always
+keyUsage                          = digitalSignature, nonRepudiation
+extendedKeyUsage                  = emailProtection
+crlDistributionPoints             = $ENV::OPENSSL_CRL_DP
+authorityInfoAccess               = $ENV::OPENSSL_OCSP
+
+[ v3_client_encipherment ]
+basicConstraints                  = CA:false
+subjectKeyIdentifier              = hash
+authorityKeyIdentifier            = keyid:always, issuer:always
+keyUsage                          = keyEncipherment
+extendedKeyUsage                  = emailProtection
+crlDistributionPoints             = $ENV::OPENSSL_CRL_DP
+authorityInfoAccess               = $ENV::OPENSSL_OCSP
+
+[ v3_timestamping ]
+basicConstraints                  = CA:false
+subjectKeyIdentifier              = hash
+authorityKeyIdentifier            = keyid:always, issuer:always
+keyUsage                          = digitalSignature, nonRepudiation
+extendedKeyUsage                  = critical,timeStamping
+crlDistributionPoints             = $ENV::OPENSSL_CRL_DP
+authorityInfoAccess               = $ENV::OPENSSL_OCSP
+
+[ req ]
+default_bits                      = 2048
+default_keyfile                   = key.pem
+default_md                        = md5
+string_mask                       = nombstr
+distinguished_name                = req_distinguished_name
+x509_extensions                   = v3_ca
+attributes                        = req_attributes
+
+[ req_distinguished_name ]
+countryName                       = Country Name (2 letter code)
+countryName_default               = FR
+countryName_min                   = 2
+countryName_max                   = 2
+stateOrProvinceName               = State or Province Name (full name)
+stateOrProvinceName_default       = france
+localityName                      = Locality Name (eg, city)
+localityName_default              = dijon
+organizationName                  = Organization Name (eg, company)
+organizationName_default          = washingmachine
+organizationalUnitName            = Organizational Unit Name (eg, section)
+organizationalUnitName_default    = info
+commonName                        = Common Name (cn)
+emailAddress                      = Email Address
+
+[ req_attributes ]
+challengePassword                 = A challenge password
+challengePassword_min             = 4
+challengePassword_max             = 20
+
+[ policy_match ]
+countryName                       = match
+stateOrProvinceName               = match
+organizationName                  = match
+organizationalUnitName            = optional
+commonName                        = supplied
+emailAddress                      = optional
+
+[ policy_client ]
+countryName                       = supplied
+stateOrProvinceName               = supplied
+organizationName                  = supplied
+organizationalUnitName            = optional
+commonName                        = supplied
+emailAddress                      = supplied
+
+[ crl_ext ]
+authorityKeyIdentifier            = keyid:always,issuer:always
+
+#######
+
+[ tsa ]
+default_tsa                       = tsa_default
+
+[ tsa_default ]
+dir                               = /tmp
+serial                            = $dir/tsaserial
+crypto_device                     = builtin
+signer_cert                       = $dir/tsacert.pem
+signer_key                        = $dir/tsacert.key
+default_policy                    = tsa_policy1
+other_policies                    = tsa_policy2, tsa_policy3
+digests                           = md5, sha1
+accuracy                          = secs:1, millisecs:500, microsecs:100
+clock_precision_digits            = 2
+ordering                          = yes
+tsa_name                          = yes
+ess_cert_id_chain                 = no
+

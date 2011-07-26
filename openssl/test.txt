@@ -1,0 +1,41 @@
+openssl s_server -accept 8443 -www -state -Verify 2 \
+    -cert /tmp/localhost.crt \
+    -key /tmp/localhost.key \
+    -CAfile /tmp/ca-washingmachine/cacert.pem
+
+openssl s_client -connect localhost:8443 -state -verify 2 -showcerts \
+    -cert /tmp/apacheclient.crt \
+    -key /tmp/apacheclient.key \
+    -CAfile /tmp/ca-washingmachine/cacert.pem
+GET /
+
+
+
+<Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+    scheme="https" secure="true" sslProtocol="TLS"
+    maxThreads="60" acceptCount="100"
+    clientAuth="want"
+    keystoreType="PKCS"
+    keystoreFile="/tmp/localhost.p12"
+    keystorePass="localhost"
+    truststoreType="PKCS"
+    truststoreFile="/tmp/ca-washingmachine/cacert.p12"
+    truststorePass="cacert"
+    />
+
+<Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
+    enableLookups="false" maxThreads="60" acceptCount="100"
+    SSLEnabled="true"
+    SSLCertificateFile="/tmp/localhost.crt"
+    SSLCertificateKeyFile="/tmp/localhost.key"
+    SSLPassword="localhost"
+    SSLVerifyClient="optional"
+    SSLCACertificateFile="/tmp/ca-washingmachine/cacert.pem"
+    SSLCARevocationFile="/tmp/ca-washingmachine/crl.pem"
+     />
+
+
+org.apache.catalina.realm.level=ALL
+org.apache.catalina.authenticator.level=ALL
+
+
