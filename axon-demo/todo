@@ -1,0 +1,4 @@
+query dsl (http://source.mysema.com/display/querydsl/Querydsl)
+move to axon-0.7
+integration test
+liquibase
