@@ -36,18 +36,18 @@ public class DataConfigJPA implements DataConfig {
     @Bean
     @Override
     public SnapshotEventStore snapshotEventStore() {
-        JpaEventStore eventStore = new JpaEventStore();
+        final JpaEventStore eventStore = new JpaEventStore();
         return eventStore;
     }
 
     // @Bean (let commented)
-    Snapshotter snapshotter(ApplicationContext context) {
-        SpringAggregateSnapshotter snapshotter = new SpringAggregateSnapshotter();
+    Snapshotter snapshotter(final ApplicationContext context) {
+        final SpringAggregateSnapshotter snapshotter = new SpringAggregateSnapshotter();
         snapshotter.setTransactionManager(platformTransactionManager());
         snapshotter.setEventStore(snapshotEventStore());
         snapshotter.setExecutor(SynchronousTaskExecutor.INSTANCE);
 
-        Map<String, AggregateFactory> factories = context
+        final Map<String, AggregateFactory> factories = context
             .getBeansOfType(AggregateFactory.class);
         snapshotter.setAggregateFactories(new ArrayList(factories.values()));
 
@@ -57,8 +57,8 @@ public class DataConfigJPA implements DataConfig {
     @Bean
     @DependsOn({ "snapshotEventStore", "platformTransactionManager" })
     @Autowired
-    EventStore eventStore(ApplicationContext context) {
-        EventCountSnapshotterTrigger snapshotterTrigger = new EventCountSnapshotterTrigger();
+    EventStore eventStore(final ApplicationContext context) {
+        final EventCountSnapshotterTrigger snapshotterTrigger = new EventCountSnapshotterTrigger();
         snapshotterTrigger.setEventStore(snapshotEventStore());
         snapshotterTrigger.setSnapshotter(snapshotter(context));
         snapshotterTrigger.setDefaultTrigger(2);
@@ -71,7 +71,7 @@ public class DataConfigJPA implements DataConfig {
 
     @Bean
     JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+        final HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setShowSql(false);
         jpaVendorAdapter.setGenerateDdl(false);
         return jpaVendorAdapter;
@@ -80,7 +80,7 @@ public class DataConfigJPA implements DataConfig {
     @Bean
     @DependsOn("jpaVendorAdapter")
     AbstractEntityManagerFactoryBean entityManagerFactory() {
-        LocalEntityManagerFactoryBean entityManagerFactory = new LocalEntityManagerFactoryBean();
+        final LocalEntityManagerFactoryBean entityManagerFactory = new LocalEntityManagerFactoryBean();
         entityManagerFactory.setPersistenceUnitName("dataStore");
         entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter());
         return entityManagerFactory;
@@ -89,9 +89,8 @@ public class DataConfigJPA implements DataConfig {
     @Bean
     @DependsOn("entityManagerFactory")
     PlatformTransactionManager platformTransactionManager() {
-        EntityManagerFactory nativeEntityManagerFactory = entityManagerFactory()
-            .getObject();
-        JpaTransactionManager transactionManager = new JpaTransactionManager(
+        final EntityManagerFactory nativeEntityManagerFactory = entityManagerFactory().getObject();
+        final JpaTransactionManager transactionManager = new JpaTransactionManager(
             nativeEntityManagerFactory);
         return transactionManager;
     }
@@ -100,7 +99,7 @@ public class DataConfigJPA implements DataConfig {
     @DependsOn("platformTransactionManager")
     @Override
     public SpringTransactionalInterceptor springTransactionalInterceptor() {
-        SpringTransactionalInterceptor springTransactionalInterceptor = new SpringTransactionalInterceptor();
+        final SpringTransactionalInterceptor springTransactionalInterceptor = new SpringTransactionalInterceptor();
         springTransactionalInterceptor.setTransactionManager(platformTransactionManager());
         return springTransactionalInterceptor;
     }

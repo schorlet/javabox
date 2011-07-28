@@ -6,7 +6,7 @@ import demo.axon.customer.command.Customer;
 
 public class CustomerEventRepository extends GenericEventSourcingRepository<Customer> {
 
-    public CustomerEventRepository(Class<Customer> aggregateType) {
+    public CustomerEventRepository(final Class<Customer> aggregateType) {
         super(aggregateType);
     }
 

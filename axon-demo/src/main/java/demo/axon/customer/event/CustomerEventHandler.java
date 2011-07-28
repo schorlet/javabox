@@ -30,26 +30,26 @@ public class CustomerEventHandler {
      */
 
     @EventHandler
-    protected void handleCreatedCustomerEvent(CreatedCustomerEvent event) {
-        CustomerEntity entry = new CustomerEntity();
+    protected void handleCreatedCustomerEvent(final CreatedCustomerEvent event) {
+        final CustomerEntity entry = new CustomerEntity();
         entry.setIdentifier(event.getAggregateIdentifier());
         entry.setName(event.getName());
         entityManager.persist(entry);
     }
 
     @EventHandler
-    protected void handleCustomerNameChangedEvent(CustomerNameChangedEvent event) {
+    protected void handleCustomerNameChangedEvent(final CustomerNameChangedEvent event) {
         final UUID identifier = event.getAggregateIdentifier();
         final String newName = event.getNewName();
 
-        new JPAUpdateClause(entityManager, customerEntity).where(
-            customerEntity.identifier.eq(identifier.toString())).set(customerEntity.name,
-            newName).execute();
+        new JPAUpdateClause(entityManager, customerEntity)
+            .where(customerEntity.identifier.eq(identifier.toString()))
+            .set(customerEntity.name, newName).execute();
     }
 
     @EventHandler
-    protected void handleRemovedCustomerEvent(RemovedCustomerEvent event) {
-        UUID identifier = event.getAggregateIdentifier();
+    protected void handleRemovedCustomerEvent(final RemovedCustomerEvent event) {
+        final UUID identifier = event.getAggregateIdentifier();
 
         new JPADeleteClause(entityManager, customerEntity).where(
             customerEntity.identifier.eq(identifier.toString())).execute();

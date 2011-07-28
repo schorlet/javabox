@@ -21,7 +21,7 @@ public class CustomerEntity {
         return UUID.fromString(identifier);
     }
 
-    public void setIdentifier(UUID identifier) {
+    public void setIdentifier(final UUID identifier) {
         this.identifier = identifier.toString();
     }
 
@@ -29,7 +29,7 @@ public class CustomerEntity {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 

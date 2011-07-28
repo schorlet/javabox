@@ -9,56 +9,54 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CustomerCommandHandler {
-    private static final Logger logger = LoggerFactory
-        .getLogger(CustomerCommandHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(CustomerCommandHandler.class);
 
-    private Repository<Customer> repository;
-    private CustomerValidation validation;
+    private final Repository<Customer> repository;
+    private final CustomerValidation validation;
 
-    public CustomerCommandHandler(Repository<Customer> repository,
-        CustomerValidation validation) {
+    public CustomerCommandHandler(final Repository<Customer> repository,
+        final CustomerValidation validation) {
         this.repository = repository;
         this.validation = validation;
     }
 
     @CommandHandler
-    public void handle(CreateCustomerCommand command) {
+    public void handle(final CreateCustomerCommand command) {
         logger.debug("[Handle] {}", string(command));
 
         Validate.notNull(command.getIdentifier(), "Customer identifier may not be null");
         Validate.notNull(command.getName(), "Name may not be null");
         validation.uniqueCustomerName(command.getName());
 
-        Customer customer = new Customer(command.getIdentifier(), command.getName());
+        final Customer customer = new Customer(command.getIdentifier(), command.getName());
         repository.add(customer);
     }
 
     @CommandHandler
-    public void handle(ChangeCustomerNameCommand command) {
+    public void handle(final ChangeCustomerNameCommand command) {
         logger.debug("[Handle] {}", string(command));
 
         Validate.notNull(command.getCustomerId(), "Customer identifier may not be null");
         Validate.notNull(command.getCustomerNewName(), "Customer name may not be null");
         validation.uniqueCustomerName(command.getCustomerNewName());
-        
-        Customer customer = repository.load(command.getCustomerId(), null);
+
+        final Customer customer = repository.load(command.getCustomerId(), null);
         customer.changeName(command.getCustomerNewName());
         repository.add(customer);
     }
 
     @CommandHandler
-    public void handle(RemoveCustomerCommand command) {
+    public void handle(final RemoveCustomerCommand command) {
         logger.debug("[Handle] {}", string(command));
 
         Validate.notNull(command.getCustomerId(), "Customer identifier may not be null");
 
-        Customer customer = repository.load(command.getCustomerId(), null);
+        final Customer customer = repository.load(command.getCustomerId(), null);
         customer.remove();
         repository.add(customer);
     }
 
-    String string(Object object) {
-        return ToStringBuilder.reflectionToString(object,
-            ToStringStyle.SHORT_PREFIX_STYLE);
+    String string(final Object object) {
+        return ToStringBuilder.reflectionToString(object, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }
