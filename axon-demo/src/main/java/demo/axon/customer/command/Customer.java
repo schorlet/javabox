@@ -12,7 +12,7 @@ import demo.axon.customer.event.RemovedCustomerEvent;
 public class Customer extends AbstractAnnotatedAggregateRoot {
     @SuppressWarnings("unused")
     private String name;
-    
+
     /*
      * NOTE:
      * There is currently a limitation in Axon that requires all events
@@ -21,11 +21,11 @@ public class Customer extends AbstractAnnotatedAggregateRoot {
      * https://groups.google.com/group/axonframework/browse_thread/thread/5f0c11b28d1c7b0c#
      */
 
-    Customer(UUID id) {
+    Customer(final UUID id) {
         super(id);
     }
 
-    Customer(UUID id, String name) {
+    Customer(final UUID id, final String name) {
         super(id);
         apply(new CreatedCustomerEvent(name));
     }
@@ -36,7 +36,7 @@ public class Customer extends AbstractAnnotatedAggregateRoot {
      * the aggregate (i.e not the @EventHandler annotated ones).
      */
 
-    public void changeName(String newName) {
+    public void changeName(final String newName) {
         apply(new CustomerNameChangedEvent(newName));
     }
 
@@ -49,14 +49,14 @@ public class Customer extends AbstractAnnotatedAggregateRoot {
      * eg: No logic in the @EventHandler except strictly changing the state as
      * described by the event.
      */
-    
+
     @EventHandler
-    protected void handleCreatedCustomerEvent(CreatedCustomerEvent event) {
+    protected void handleCreatedCustomerEvent(final CreatedCustomerEvent event) {
         name = event.getName();
     }
 
     @EventHandler
-    protected void handleCustomerNameChangedEvent(CustomerNameChangedEvent event) {
+    protected void handleCustomerNameChangedEvent(final CustomerNameChangedEvent event) {
         name = event.getNewName();
     }
 

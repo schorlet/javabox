@@ -6,11 +6,11 @@ public class ChangeCustomerNameCommand {
     private final UUID customerId;
     private final String customerNewName;
 
-    public ChangeCustomerNameCommand(UUID customerId, String customerNewName) {
+    public ChangeCustomerNameCommand(final UUID customerId, final String customerNewName) {
         this.customerId = customerId;
         this.customerNewName = customerNewName;
     }
-    
+
     public UUID getCustomerId() {
         return customerId;
     }

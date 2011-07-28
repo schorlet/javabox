@@ -28,15 +28,15 @@ public class CustomerConsole {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public static void main(String[] args) {
-        CustomerConsole launcher = new CustomerConsole();
+    public static void main(final String[] args) {
+        final CustomerConsole launcher = new CustomerConsole();
         launcher.initializeContext();
         launcher.processCommands(System.in);
         launcher.shutDown();
     }
 
-    private void processCommands(InputStream in) {
-        Scanner scanner = new Scanner(in);
+    private void processCommands(final InputStream in) {
+        final Scanner scanner = new Scanner(in);
         String command = null;
 
         while (!"quit".equals(command)) {
@@ -44,32 +44,33 @@ public class CustomerConsole {
             command = scanner.nextLine();
 
             if (command.startsWith("add ")) {
-                String name = command.substring(4);
-                
-                CreateCustomerCommand create = new CreateCustomerCommand(name);
+                final String name = command.substring(4);
+
+                final CreateCustomerCommand create = new CreateCustomerCommand(name);
                 commandBus.dispatch(create, LoggerCallback.INSTANCE);
 
             } else if (command.startsWith("delete ")) {
-                String identifier = command.substring(7);
-                UUID uuid = UUID.fromString(identifier);
-                
-                RemoveCustomerCommand remove = new RemoveCustomerCommand(uuid);
+                final String identifier = command.substring(7);
+                final UUID uuid = UUID.fromString(identifier);
+
+                final RemoveCustomerCommand remove = new RemoveCustomerCommand(uuid);
                 commandBus.dispatch(remove, LoggerCallback.INSTANCE);
 
             } else if (command.startsWith("rename ")) {
-                int indexOfNewName = command.indexOf(' ', 7) + 1;
-                String identifier = command.substring(7, indexOfNewName -1);
-                String newName = command.substring(indexOfNewName);
-                UUID uuid = UUID.fromString(identifier);
-                
-                ChangeCustomerNameCommand rename = new ChangeCustomerNameCommand(uuid, newName);
+                final int indexOfNewName = command.indexOf(' ', 7) + 1;
+                final String identifier = command.substring(7, indexOfNewName - 1);
+                final String newName = command.substring(indexOfNewName);
+                final UUID uuid = UUID.fromString(identifier);
+
+                final ChangeCustomerNameCommand rename = new ChangeCustomerNameCommand(uuid,
+                    newName);
                 commandBus.dispatch(rename, LoggerCallback.INSTANCE);
 
             } else if (command.startsWith("list")) {
-                List<CustomerEntity> customers = customerRepository.findAll();
+                final List<CustomerEntity> customers = customerRepository.findAll();
                 logger.debug("customer list size: {}", customers.size());
 
-                for (CustomerEntity customer : customers) {
+                for (final CustomerEntity customer : customers) {
                     logger.debug("  {}", customer);
                 }
 
@@ -88,12 +89,12 @@ public class CustomerConsole {
     }
 
     private void initializeContext() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.register(AppConfig.class);
         context.scan("demo.axon.customer");
         context.refresh();
 
-        ConfigurableListableBeanFactory factory = (ConfigurableListableBeanFactory) context
+        final ConfigurableListableBeanFactory factory = (ConfigurableListableBeanFactory) context
             .getAutowireCapableBeanFactory();
         factory.autowireBean(this);
     }

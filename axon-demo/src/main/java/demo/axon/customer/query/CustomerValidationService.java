@@ -10,21 +10,20 @@ import demo.axon.customer.command.CustomerValidation;
 public class CustomerValidationService implements CustomerValidation {
     private static final Logger logger = LoggerFactory.getLogger(CustomerValidationService.class);
 
-    private CustomerRepository customerRepository;
-    
-    public CustomerValidationService(CustomerRepository customerRepository) {
+    private final CustomerRepository customerRepository;
+
+    public CustomerValidationService(final CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
     @Override
-    public void uniqueCustomerName(String name) {
+    public void uniqueCustomerName(final String name) {
         logger.debug("[Validation] uniqueCustomerName {}", name);
-        
-        List<CustomerEntity> list = customerRepository.findByName(name);
-        
-        if (!list.isEmpty()) {
-            throw new IllegalArgumentException(String.format(
-                "Customer name (%s) already exists", name));
-        }
+
+        final List<CustomerEntity> list = customerRepository.findByName(name);
+
+        if (!list.isEmpty())
+            throw new IllegalArgumentException(String.format("Customer name (%s) already exists",
+                name));
     }
 }

@@ -20,12 +20,12 @@ import demo.axon.customer.query.CustomerValidationService;
 
 @Configuration
 public class CustomerConfig {
-    
+
     @Autowired
     CommonConfig common;
     @Autowired
     DataConfig data;
-    
+
     @Bean
     public CustomerRepository customerRepository() {
         return new CustomerRepository();
@@ -36,16 +36,16 @@ public class CustomerConfig {
     public CustomerValidation customerValidation() {
         return new CustomerValidationService(customerRepository());
     }
-    
+
     @Bean
     @DependsOn({ "eventBus", "snapshotEventStore" })
     public EventSourcingRepository<Customer> customerEventRepository() {
-        CustomerEventRepository repository = new CustomerEventRepository(Customer.class);
+        final CustomerEventRepository repository = new CustomerEventRepository(Customer.class);
         repository.setEventBus(common.eventBus());
         repository.setEventStore(data.snapshotEventStore());
         return repository;
     }
-    
+
     /*
      * CommandHandler
      */
@@ -53,7 +53,7 @@ public class CustomerConfig {
     @Bean
     @DependsOn({ "customerEventRepository", "customerValidation" })
     CustomerCommandHandler customerCommandHandler() {
-        CustomerCommandHandler commandHandler = new CustomerCommandHandler(
+        final CustomerCommandHandler commandHandler = new CustomerCommandHandler(
             customerEventRepository(), customerValidation());
         return commandHandler;
     }
@@ -65,7 +65,7 @@ public class CustomerConfig {
         // matching with @CommandHandler annotated methods
         return new AnnotationCommandHandlerAdapter(customerCommandHandler(), common.commandBus());
     }
-    
+
     /*
      * EventHandler
      */
@@ -82,5 +82,5 @@ public class CustomerConfig {
         // via AnnotationEventListenerAdapter @PostConstruct
         return new AnnotationEventListenerAdapter(customerEventHandler(), common.eventBus());
     }
-    
+
 }

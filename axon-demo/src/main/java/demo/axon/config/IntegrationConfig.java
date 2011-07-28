@@ -21,10 +21,10 @@ public class IntegrationConfig {
 
     @Bean
     SubscribableChannel channel() {
-        SyncTaskExecutor executor = new SyncTaskExecutor();
-        //SimpleAsyncTaskExecutor executor = new SimpleAsyncTaskExecutor();
+        final SyncTaskExecutor executor = new SyncTaskExecutor();
+        // SimpleAsyncTaskExecutor executor = new SimpleAsyncTaskExecutor();
 
-        ExecutorChannel channel = new ExecutorChannel(executor);
+        final ExecutorChannel channel = new ExecutorChannel(executor);
         return channel;
     }
 
@@ -35,8 +35,8 @@ public class IntegrationConfig {
     @Bean
     @DependsOn({ "eventBus", "channel" })
     EventListener eventListeningChannel() {
-        EventListeningMessageChannelAdapter eventListeningChannel =
-            new EventListeningMessageChannelAdapter(common.eventBus(), channel());
+        final EventListeningMessageChannelAdapter eventListeningChannel = new EventListeningMessageChannelAdapter(
+            common.eventBus(), channel());
 
         return eventListeningChannel;
     }
@@ -88,11 +88,11 @@ public class IntegrationConfig {
 
     @Bean
     EventListener eventListener() {
-        EventListener eventListener = new EventListener() {
+        final EventListener eventListener = new EventListener() {
             @Override
-            public void handle(Event event) {
-                System.err.println(String.format("Received event of type [%s] at [%s]",
-                    event.getClass().getSimpleName(), event.getTimestamp().toString()));
+            public void handle(final Event event) {
+                System.err.println(String.format("Received event of type [%s] at [%s]", event
+                    .getClass().getSimpleName(), event.getTimestamp().toString()));
             }
         };
 
@@ -102,7 +102,7 @@ public class IntegrationConfig {
     @Bean
     @DependsOn({ "channel", "eventListener" })
     public EventBus integrationEventBus() {
-        SpringIntegrationEventBus eventBus = new SpringIntegrationEventBus();
+        final SpringIntegrationEventBus eventBus = new SpringIntegrationEventBus();
         eventBus.setChannel(channel());
         eventBus.subscribe(eventListener());
         return eventBus;

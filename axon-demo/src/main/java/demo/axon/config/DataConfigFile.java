@@ -32,37 +32,38 @@ public class DataConfigFile implements DataConfig {
     /*
      * eventStore
      */
-    
+
     @Bean
     @Override
     public SnapshotEventStore snapshotEventStore() {
-        FileSystemEventStore eventStore = new FileSystemEventStore();
+        final FileSystemEventStore eventStore = new FileSystemEventStore();
         try {
             eventStore.setBaseDir(new UrlResource("file:target/eventStore/"));
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new UnhandledException(e);
         }
         return eventStore;
     }
 
     // @Bean (let commented)
-    Snapshotter snapshotter(ApplicationContext context) {
-        SpringAggregateSnapshotter snapshotter = new SpringAggregateSnapshotter();
+    Snapshotter snapshotter(final ApplicationContext context) {
+        final SpringAggregateSnapshotter snapshotter = new SpringAggregateSnapshotter();
         snapshotter.setTransactionManager(platformTransactionManager());
         snapshotter.setEventStore(snapshotEventStore());
         snapshotter.setExecutor(SynchronousTaskExecutor.INSTANCE);
-        
-        Map<String, AggregateFactory> factories = context.getBeansOfType(AggregateFactory.class);
+
+        final Map<String, AggregateFactory> factories = context
+            .getBeansOfType(AggregateFactory.class);
         snapshotter.setAggregateFactories(new ArrayList(factories.values()));
-        
+
         return snapshotter;
     }
-    
+
     @Bean
     @DependsOn({ "snapshotEventStore", "platformTransactionManager" })
     @Autowired
-    EventStore eventStore(ApplicationContext context) {
-        EventCountSnapshotterTrigger snapshotterTrigger = new EventCountSnapshotterTrigger();
+    EventStore eventStore(final ApplicationContext context) {
+        final EventCountSnapshotterTrigger snapshotterTrigger = new EventCountSnapshotterTrigger();
         snapshotterTrigger.setEventStore(snapshotEventStore());
         snapshotterTrigger.setSnapshotter(snapshotter(context));
         snapshotterTrigger.setDefaultTrigger(2);
@@ -72,10 +73,10 @@ public class DataConfigFile implements DataConfig {
     /*
      * dataStore
      */
-    
+
     @Bean
     EntityManagerFactory dataStore() {
-        EntityManagerFactory entityManagerFactory = Persistence
+        final EntityManagerFactory entityManagerFactory = Persistence
             .createEntityManagerFactory("dataStore");
         return entityManagerFactory;
     }
@@ -83,8 +84,7 @@ public class DataConfigFile implements DataConfig {
     @Bean
     @DependsOn("dataStore")
     PlatformTransactionManager platformTransactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager(
-            dataStore());
+        final JpaTransactionManager transactionManager = new JpaTransactionManager(dataStore());
         return transactionManager;
     }
 
@@ -92,7 +92,7 @@ public class DataConfigFile implements DataConfig {
     @DependsOn("platformTransactionManager")
     @Override
     public SpringTransactionalInterceptor springTransactionalInterceptor() {
-        SpringTransactionalInterceptor springTransactionalInterceptor = new SpringTransactionalInterceptor();
+        final SpringTransactionalInterceptor springTransactionalInterceptor = new SpringTransactionalInterceptor();
         springTransactionalInterceptor.setTransactionManager(platformTransactionManager());
         return springTransactionalInterceptor;
     }

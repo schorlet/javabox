@@ -16,15 +16,15 @@ public class CommonConfig {
 
     @Autowired
     DataConfig data;
-    
+
     /*
      * CommandBus
      */
-    
+
     @Bean
     @DependsOn({ "springTransactionalInterceptor" })
     public CommandBus commandBus() {
-        SimpleCommandBus commandBus = new SimpleCommandBus();
+        final SimpleCommandBus commandBus = new SimpleCommandBus();
         commandBus.setInterceptors(Arrays.asList(data.springTransactionalInterceptor()));
         return commandBus;
     }
@@ -32,10 +32,10 @@ public class CommonConfig {
     /*
      * EventBus
      */
-    
+
     @Bean
     public EventBus eventBus() {
         return new SimpleEventBus();
     }
-    
+
 }
