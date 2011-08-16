@@ -1,0 +1,87 @@
+assertion:
+InitCustomerCourse.threadPoolSize = 6
+InitCustomerCourse.Counter = 6 * 300
+
+this will create 6 transactions with 300 customers, orders, products and random (300 * [1-5]) orderitems.
+
+with low heap size=100m and those arguments:
+-Xms100m -Xmx100m -XX:MaxPermSize=25m -XX:NewRatio=4 -XX:SurvivorRatio=100 -XX:InitialTenuringThreshold=0 -XX:MaxTenuringThreshold=0
+
+the 6 transactions will will fill the heap keeping objects in org.h2.engine.UndoLog, one for each sessions.
+filling Eden Space and Old Gen will slow down the execution ending with:
+    - jconsole deconnection
+    - program hanging
+    - h2 closing connection (ATTENTION: The server has decided to close this client connection)
+    - hibernate errors
+        org.hibernate.util.JDBCExceptionReporter       - The database has been close
+        org.h2.jdbc.JdbcSQLException: The database has been closed
+    - c3p0  APPARENT DEADLOCK
+        Complete Status:
+        Managed Threads: 1
+        Active Threads: 1
+        Active Tasks:
+            com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask@e781b7 (com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#0)
+        Pending Tasks:
+            com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask@f519f2
+            com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask@17a6aa4
+            com.mchange.v2.resourcepool.BasicResourcePool$1DestroyResourceTask@1ef5069
+            com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask@885b03
+            com.mchange.v2.resourcepool.BasicResourcePool$1DestroyResourceTask@f223a
+            com.mchange.v2.resourcepool.BasicResourcePool$1DestroyResourceTask@1904b6a
+            com.mchange.v2.resourcepool.BasicResourcePool$1DestroyResourceTask@473177
+        Pool thread stack traces:
+            Thread[com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#0,5,main]
+                java.lang.Thread.sleep(Native Method)
+                com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask.run(BasicResourcePool.java:1805)
+                com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:547)
+
+the program does not exit with oome but:
+    - all transactions failed
+    - InitCustomerCourse takes:
+        238595ms with NewRatio=6
+        297452ms with NewRatio=4
+
+All is ok with -Xmx120m:
+InitCustomerCourse takes 116636ms
+
+----------------------------------------------------------
+
+# the number of times an object survives a young collection before being promoted to the old, or tenured generation.
+-XX:InitialTenuringThreshold=0 (default: 7)
+-XX:MaxTenuringThreshold=0 (default: 15)
+
+# reduce survivor space near 0m
+-XX:SurvivorRatio=100 (default: 10)
+
+# ratio between old gen and eden spaces (old/eden)
+-XX:NewRatio=4 (default: 8 or 12)
+
+#
+Xmx100m, NewRatio=4: new=20m, old=80m, surivor=0m
+Xmx100m, NewRatio=6: new=15m, old=85m, surivor=0m
+
+Xmx120m, NewRatio=4: new=25m, old=95m, surivor=0m
+Xmx120m, NewRatio=6: new=15m, old=105m, surivor=0m
+
+
+# heap dump when oome
+-XX:+HeapDumpOnOutOfMemoryError
+
+# max perm size (default: 64m)
+-XX:MaxPermSize=25m
+
+
+-Dcom.sun.management.jmxremote=true -Xms120m -Xmx120m -XX:MaxPermSize=25m -XX:NewRatio=6 -XX:SurvivorRatio=100 -XX:InitialTenuringThreshold=0 -XX:MaxTenuringThreshold=0
+
+--------------------------------------------------
+# jmap prints shared object memory maps or heap memory details of a given process
+jmap -heap pid
+jmap -histo:live pid
+
+# hprof provides various types of heap and/or cpu profiling features  (and slow down execution)
+java -agentlib:hprof=help
+java -agentlib:hprof=heap=sites,force=n,interval=2000
+
+
+
+

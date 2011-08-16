@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+  <persistence-unit name="dataStore" transaction-type="RESOURCE_LOCAL">
+    <class>demo.batch.customer.entity.CustomerEntity</class>
+    <class>demo.batch.customer.entity.OrderEntity</class>
+    <class>demo.batch.customer.entity.OrderItemEntity</class>
+    <class>demo.batch.customer.entity.ProductEntity</class>
+    
+    <properties>
+      <property name="hibernate.show_sql" value="false" />
+
+      <property name="hibernate.hbm2ddl.auto" value="update" />
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+
+      <property name="hibernate.connection.url" value="jdbc:h2:file:target/dataStore;MVCC=TRUE" />
+      <property name="hibernate.connection.driver_class" value="org.h2.Driver" />
+      <property name="hibernate.connection.username" value="sa" />
+      <property name="hibernate.connection.password" value="" />
+
+      <property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />
+      
+      <property name="hibernate.current_session_context_class" value="thread" />
+      <property name="hibernate.order_updates" value="true" />
+      
+      <property name="hibernate.c3p0.acquire_increment" value="1" />
+      <property name="hibernate.c3p0.timeout" value="10" />
+      <property name="hibernate.c3p0.min_size" value="0" />
+      <property name="hibernate.c3p0.max_size" value="6" />
+      <property name="hibernate.c3p0.max_statements" value="12" />
+
+    </properties>
+  </persistence-unit>
+</persistence>
