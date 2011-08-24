@@ -1,0 +1,57 @@
+It is usually best to have separate lucene indexes for searches on different types of data, 
+rather than adding them to a single index distinguished by a "type" field.
+Here's why:
+    - Maintenance operations are easier. If you've just performed a batch update on a table, 
+    you only need to rebuild that specific index instead of the entire index.
+    - Global tf/idf values will be affected, affecting ranking of results. 
+    If the data is of the same "type", then that is desirable. Otherwise, not.
+
+
+UseCompoundFile
+Building the compound file format takes time during indexing (7-33% in testing for LUCENE-888). 
+However, note that doing this will greatly increase the number of file descriptors 
+used by indexing and by searching, so you could run out of file descriptors if mergeFactor is also large. 
+
+mergeFactor
+This parameter determines how many documents you can store in the original segment index 
+and how often you can merge together the segment indexes in the disk. 
+For example, if the value of mergeFactor is 10, all the documents 
+will write to a new segment index on the disk if the number of documents reaches 10 in the memory. 
+Also, if the number of segment indexes on the disk reaches 10, they will merge together. 
+The default value of this parameter is 10, which isn't suitable 
+if you have a large number of documents. 
+The large value of this parameter is better for batch index creation.
+
+maxMergeDocs
+This parameter determines the maximum number of documents per segment index. 
+The default value is Integer.MAX_VALUE. 
+Large values are better for batched indexing and speedier searches.
+Small values (e.g., less than 10,000) are best for interactive indexing.
+
+RAMBufferSizeMB
+IndexWriter can flush according to RAM usage itself. 
+Call writer.setRAMBufferSizeMB() to set the buffer size. 
+Be sure you don't also have any leftover calls to setMaxBufferedDocs since 
+the writer will flush "either or" (whichever comes first). 
+
+maxBufferedDocs
+Determines the minimal number of documents required before the buffered in-memory documents are flushed as
+a new Segment.  Large values generally gives faster indexing.
+
+
+
+http://lucene.apache.org/java/2_9_0/queryparsersyntax.html
+
+The default search implementation of Apache Lucene returns results sorted by score (the most relevant result first), then by id (the oldest result first). 
+The sort fields must be indexed but not tokenized (Index.NOT_ANALYZED)
+The sort fields content must be plain text only
+
+One difference between using a Query and a Filter is that the Query has an impact on the score while a Filter does not.
+
+What is the most popular trick for dealing with Solr ?
+Use copyField to copy the original field to another field (which has a different data type and other field attributes)
+
+What are the requirements for a field to be sortable ?
+A field needs to be indexed, not be multi-valued, and it should not have multiple tokens (either there is no text analysis or it yields just one token).
+StrField (by default) are not analyzed. They generate just one token.
+Because of the special text analysis restrictions of fields used for sorting, text fields in your schema that need to be sortable will usually be copied to another field and analyzed differently.

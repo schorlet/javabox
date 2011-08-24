@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+  version="2.5">
+
+  <description>Lucene Demo Web Application</description>
+  <display-name>Lucene Demo</display-name>
+
+  <listener>
+    <listener-class>demo.lucene1.web.ContextListener</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>demo.lucene1.web.SearchServlet</servlet-class>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>SuggestServlet</servlet-name>
+    <servlet-class>demo.lucene1.web.SuggestServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>DocumentServlet</servlet-name>
+    <servlet-class>demo.lucene1.web.DocumentServlet</servlet-class>
+    <load-on-startup>-1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>BrowseServlet</servlet-name>
+    <servlet-class>demo.lucene1.web.BrowseServlet</servlet-class>
+    <load-on-startup>-1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SuggestServlet</servlet-name>
+    <url-pattern>/suggest</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DocumentServlet</servlet-name>
+    <url-pattern>/document</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BrowseServlet</servlet-name>
+    <url-pattern>/browse</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

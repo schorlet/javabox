@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>washingmachine</groupId>
+    <artifactId>lucene-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <groupId>washingmachine</groupId>
+  <artifactId>lucene-demo-jsp</artifactId>
+  <packaging>war</packaging>
+  <name>lucene-demo-jsp</name>
+  <dependencies>
+    <!-- demo lucene core -->
+    <dependency>
+      <groupId>washingmachine</groupId>
+      <artifactId>lucene-demo-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <!-- standard taglibs -->
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+    </dependency>
+    <!-- jstl -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+    </dependency>
+    <!-- servlet -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+    <!-- jsp -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <configuration>
+            <contextPath>/lucene-demo</contextPath>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

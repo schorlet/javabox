@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib
+        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+        "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+  <tlibversion>1.0</tlibversion>
+  <jspversion>2.0</jspversion>
+  <shortname>demo tags</shortname>
+  <tag>
+    <name>documents</name>
+    <tagclass>demo.lucene1.web.tags.DocumentsTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>documents tag.</info>
+    <attribute>
+      <name>documents</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>document</name>
+    <tagclass>demo.lucene1.web.tags.DocumentDisplayTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>document tag.</info>
+    <attribute>
+      <name>document</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>breadcrum</name>
+    <tagclass>demo.lucene1.web.tags.BreadCrumTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>breadcrum tag.</info>
+  </tag>
+  <tag>
+    <name>pager</name>
+    <tagclass>demo.lucene1.web.tags.PagerTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>pager tag.</info>
+    <attribute>
+      <name>pages</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>searchform</name>
+    <tagclass>demo.lucene1.web.tags.SearchTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>search form.</info>
+    <attribute>
+      <name>servletPath</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>tagcloud</name>
+    <tagclass>demo.lucene1.web.tags.TagCloudTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>tagcloud tag.</info>
+    <attribute>
+      <name>tagCloud</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>queryString</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>facets</name>
+    <tagclass>demo.lucene1.web.tags.FacetFilterTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>facets tag.</info>
+    <attribute>
+      <name>facets</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>hierarchy</name>
+    <tagclass>demo.lucene1.web.tags.HierarchyTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>hierarchy tag.</info>
+    <attribute>
+      <name>hierarchy</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+</taglib>

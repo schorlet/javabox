@@ -1,0 +1,240 @@
+div#header_pane {
+    background-image: url("ddg.png");
+    background-repeat: repeat;
+    padding: 10px;
+    border-width: 1px;
+    border-color: white;
+    border-style: outset;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+
+div#content_pane {
+    padding-top: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+
+div.breadcrum {
+    font-family: "Segoe UI","Arial",sans-serif;
+    font-size: 73.3%;
+    color: #662200;
+}
+
+div.header_form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 550px;
+    text-align: center;
+}
+
+div#facets_pane {
+	float: left;
+    font-family: "Segoe UI","Arial",sans-serif;
+	font-size: 76.3%;
+    width: 24%;
+}
+
+div#facets_pane ul {
+    list-style-position: inside;
+    padding-left: 20px;
+}
+
+div#facets_pane a {
+	color: #1168CC;
+	text-decoration: none;
+}
+
+div#facets_pane a:hover {
+   text-decoration: underline;
+}
+
+div#results_pane {
+    float: left;
+    font-family: "Segoe UI","Arial",sans-serif;
+    padding: 1px;
+    width: 72%;
+}
+
+div.results_total {
+    font-size: 100.0%;
+    color: gray;
+    margin: 2px 2px 2px 4px;
+}
+
+div.vertical_pager {
+    float: left;
+    width: 3%;
+}
+
+div.vertical_pager div.results_pager a {
+    line-height: 1.6;
+    margin: 4px;
+}
+
+div.results_pager {
+    font-family: "Segoe UI","Arial",sans-serif;
+    cursor: pointer;
+}
+
+div.results_pager a {
+    font-size: 100.0%;
+    color: gray;
+    margin: 2px;
+    padding: 4px;
+}
+
+div.results_pager a:hover {
+    border:1px lightgray outset;
+}
+
+div.results_pager a:focus {
+    border:1px gray inset;
+}
+
+div.results_pager a#actualpage {
+    cursor: default;
+    border:0px;
+}
+
+div.results {
+    width: 100%;
+  	margin-bottom: 10px;
+}
+
+div.tagcloud {
+    float: right;
+    font-family: "Segoe UI","Arial",sans-serif;
+    margin: 2px;
+    width: 200px;
+    z-index: 1;
+}
+
+div.tagcloud a {
+	padding: 2px;
+	margin: 2px;
+    text-decoration: none;
+}
+
+div.tagcloud a.smallTag { font-size: xx-small; color: gray; }
+div.tagcloud a.mediumTag { font-size: medium; color: #1168CC; }
+div.tagcloud a.largeTag { font-size: large; color: #0057BB; }
+
+div.spacer {
+	clear: both;
+}
+
+div.result {
+	color: #1168CC;
+    text-decoration: none;
+	margin-bottom: 10px;  
+	padding: 2px;
+}
+
+div.result_title a {
+	color: #1168CC;
+    text-decoration: none;
+}
+
+div.result_title a:hover {
+	text-decoration: underline;
+}
+
+pre.result_highlight {
+	font-size: 83.3%;
+	color: gray;
+    line-height: 1.1;
+}
+div.result_parent {
+	font-size: 83.3%;
+    color: #662200;
+}
+
+div.document {
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+table.document_table {
+    font-family: "Segoe UI","Arial",sans-serif;
+    border: 1px;
+}
+td.document_field {
+	clear: left;
+    float: left;
+    text-align: left;
+    padding: 2px;
+    color: #662200;
+    width: 160px;
+    font-weight: bold;
+}
+td.document_value {
+    float: left;
+    text-align: left;
+    padding: 2px;
+    color: #1168CC;
+}
+td.document_value pre {
+    color: gray;
+    width: 780px;
+    height: 660px;
+    overflow: auto;
+    padding: 4px;
+}
+td.document_value pre b {
+    color: #8B5A00;
+}
+
+div.hierarchy {
+    float: left;
+    font-family: "Segoe UI","Arial",sans-serif;
+    font-size: 76.3%;
+    width: 24%;
+}
+ul.hierarchy {
+    list-style-position: inside;
+    padding-left: 20px;
+}
+li.hierarchy a {
+    color: #1168CC;
+    text-decoration: none;
+}
+li.hierarchy a.selected {
+	font-weight: bolder;
+	cursor: default;
+	text-decoration: none;
+}
+li.hierarchy a.selected:hover {
+   text-decoration: none;
+}
+li.hierarchy a:hover {
+   text-decoration: underline;
+}
+
+input[type=text] {
+    border-width: 1px;
+    border-style: inset;
+}
+input {
+    height: 24px;
+}
+form,div,dl,pre,p,ul {
+    margin-top: 1px;	
+    margin-right: 1px;    
+    margin-bottom: 1px;    
+    margin-left: 1px;    
+}
+body {
+	min-width: 780px;
+    max-width: 1260px;
+    margin: 10px auto;
+}
+body div#body_inside {
+    margin: 10px 10px 0px 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
