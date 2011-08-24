@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>washingmachine</groupId>
+    <artifactId>lucene-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <groupId>washingmachine</groupId>
+  <artifactId>lucene-demo-core</artifactId>
+  <packaging>jar</packaging>
+  <name>lucene-demo-core</name>
+  <dependencies>
+    <!-- lucene analyzers -->
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-analyzers</artifactId>
+    </dependency>
+    <!-- lucene highlighter -->
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-highlighter</artifactId>
+    </dependency>
+    <!-- lucene spellchecker -->
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-spellchecker</artifactId>
+    </dependency>
+    <!-- tika: content extraction -->
+    <dependency>
+      <groupId>org.apache.tika</groupId>
+      <artifactId>tika-parsers</artifactId>
+    </dependency>
+    <!-- sqlite -->
+    <dependency>
+      <groupId>sqlitejdbc</groupId>
+      <artifactId>sqlitejdbc</artifactId>
+    </dependency>
+    <!-- commons-lang -->
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+    <!-- junit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <!-- mvn exec:java -Dexec.args=path -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>demo.lucene1.index.DemoIndexer</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

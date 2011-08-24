@@ -1,0 +1,7 @@
+wget http://files.zentus.com/sqlitejdbc/sqlitejdbc-v056.jar
+
+mvn install:install-file -DgroupId=sqlitejdbc -DartifactId=sqlitejdbc -Dversion=v056 -Dpackaging=jar -Dfile=sqlitejdbc-v056.jar
+
+
+sqlite3 facets.sqlite "select * from facets"
+
