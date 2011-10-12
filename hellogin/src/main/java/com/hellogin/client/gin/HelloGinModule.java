@@ -11,8 +11,8 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.hellogin.client.MainView;
 import com.hellogin.client.activity.ActivityFactory;
-import com.hellogin.client.activity.GoodbyeActivityMapper;
-import com.hellogin.client.activity.HelloActivityMapper;
+import com.hellogin.client.activity.SouthActivityMapper;
+import com.hellogin.client.activity.CenterActivityMapper;
 import com.hellogin.client.place.AppPlaceHistoryMapper;
 import com.hellogin.client.place.PlaceOne;
 import com.hellogin.client.view.GoodbyeView;
@@ -29,8 +29,8 @@ public class HelloGinModule extends AbstractGinModule {
 
         bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
 
-        bind(HelloActivityMapper.class).in(Singleton.class);
-        bind(GoodbyeActivityMapper.class).in(Singleton.class);
+        bind(CenterActivityMapper.class).in(Singleton.class);
+        bind(SouthActivityMapper.class).in(Singleton.class);
 
         bind(GoodbyeView.class).in(Singleton.class);
         bind(HelloView.class).in(Singleton.class);

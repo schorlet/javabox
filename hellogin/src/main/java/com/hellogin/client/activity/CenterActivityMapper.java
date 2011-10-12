@@ -14,11 +14,11 @@ import com.hellogin.client.view.HelloActivity;
 /**
  * HelloActivityMapper
  */
-public class HelloActivityMapper implements ActivityMapper {
+public class CenterActivityMapper implements ActivityMapper {
     final ActivityFactory activityFactory;
 
     @Inject
-    public HelloActivityMapper(final ActivityFactory activityFactory) {
+    public CenterActivityMapper(final ActivityFactory activityFactory) {
         this.activityFactory = activityFactory;
     }
 
