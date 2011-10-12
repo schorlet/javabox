@@ -10,8 +10,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.hellogin.client.activity.GoodbyeActivityMapper;
-import com.hellogin.client.activity.HelloActivityMapper;
+import com.hellogin.client.activity.SouthActivityMapper;
+import com.hellogin.client.activity.CenterActivityMapper;
 
 /**
  * MainView
@@ -29,8 +29,8 @@ public class MainView extends Composite {
     SimplePanel goodbyePanel;
 
     @Inject
-    public MainView(final HelloActivityMapper helloActivityMapper,
-        final GoodbyeActivityMapper goodbyeActivityMapper, final EventBus eventBus) {
+    public MainView(final CenterActivityMapper helloActivityMapper,
+        final SouthActivityMapper goodbyeActivityMapper, final EventBus eventBus) {
 
         initWidget(uiBinder.createAndBindUi(this));
 
