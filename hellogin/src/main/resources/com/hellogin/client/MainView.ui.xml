@@ -36,7 +36,7 @@
     <g:center>
       <g:FlowPanel styleName="{style.centerPanel}">
         <g:Label>This is the CENTER panel</g:Label>
-        <g:SimplePanel ui:field="helloPanel" />
+        <g:SimplePanel ui:field="centerPanel" />
       </g:FlowPanel>
     </g:center>
     <g:east size='15'>
@@ -47,7 +47,7 @@
     <g:south size="5">
       <g:FlowPanel styleName="{style.southPanel}">
         <g:Label>This is the SOUTH panel</g:Label>
-        <g:SimplePanel ui:field="goodbyePanel" />
+        <g:SimplePanel ui:field="southPanel" />
       </g:FlowPanel>
     </g:south>
   </g:DockLayoutPanel>

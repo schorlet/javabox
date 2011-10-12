@@ -3,18 +3,12 @@ package com.hellogin.client.place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 
 /**
- * GoodbyePlace
+ * PlaceTwo
  */
 public class PlaceTwo extends BasePlace {
-    private final String goodbyeName;
 
     public PlaceTwo(final String token) {
-        this.goodbyeName = token;
-    }
-
-    @Override
-    public String getName() {
-        return goodbyeName;
+        super(token);
     }
 
     public static class Tokenizer implements PlaceTokenizer<PlaceTwo> {

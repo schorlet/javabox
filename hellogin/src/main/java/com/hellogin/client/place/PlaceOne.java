@@ -3,18 +3,12 @@ package com.hellogin.client.place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 
 /**
- * HelloPlace
+ * PlaceOne
  */
 public class PlaceOne extends BasePlace {
-    private final String helloName;
 
     public PlaceOne(final String token) {
-        this.helloName = token;
-    }
-
-    @Override
-    public String getName() {
-        return helloName;
+        super(token);
     }
 
     public static class Tokenizer implements PlaceTokenizer<PlaceOne> {

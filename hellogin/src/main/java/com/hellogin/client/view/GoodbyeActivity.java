@@ -1,7 +1,6 @@
 package com.hellogin.client.view;
 
 import com.google.gwt.activity.shared.AbstractActivity;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.assistedinject.Assisted;
@@ -25,8 +24,6 @@ public class GoodbyeActivity extends AbstractActivity {
     @Override
     public void start(final AcceptsOneWidget containerWidget, final EventBus eventBus) {
         goodbyeView.setName(place.getName());
-
-        GWT.log("GoodbyeActivity.startActivity: " + place);
         containerWidget.setWidget(goodbyeView.asWidget());
     }
 }
