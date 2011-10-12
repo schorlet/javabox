@@ -14,7 +14,7 @@ import com.hellogin.client.activity.ActivityFactory;
 import com.hellogin.client.activity.GoodbyeActivityMapper;
 import com.hellogin.client.activity.HelloActivityMapper;
 import com.hellogin.client.place.AppPlaceHistoryMapper;
-import com.hellogin.client.place.HelloPlace;
+import com.hellogin.client.place.PlaceOne;
 import com.hellogin.client.view.GoodbyeView;
 import com.hellogin.client.view.HelloView;
 
@@ -52,7 +52,7 @@ public class HelloGinModule extends AbstractGinModule {
         final PlaceHistoryMapper historyMapper, final EventBus eventBus) {
 
         final PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
-        historyHandler.register(placeController, eventBus, new HelloPlace("GIN!"));
+        historyHandler.register(placeController, eventBus, new PlaceOne("GIN!"));
         return historyHandler;
     }
 

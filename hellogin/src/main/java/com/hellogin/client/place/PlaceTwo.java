@@ -5,10 +5,10 @@ import com.google.gwt.place.shared.PlaceTokenizer;
 /**
  * GoodbyePlace
  */
-public class GoodbyePlace extends BasePlace {
+public class PlaceTwo extends BasePlace {
     private final String goodbyeName;
 
-    public GoodbyePlace(final String token) {
+    public PlaceTwo(final String token) {
         this.goodbyeName = token;
     }
 
@@ -17,15 +17,15 @@ public class GoodbyePlace extends BasePlace {
         return goodbyeName;
     }
 
-    public static class Tokenizer implements PlaceTokenizer<GoodbyePlace> {
+    public static class Tokenizer implements PlaceTokenizer<PlaceTwo> {
         @Override
-        public String getToken(final GoodbyePlace place) {
+        public String getToken(final PlaceTwo place) {
             return place.getName();
         }
 
         @Override
-        public GoodbyePlace getPlace(final String token) {
-            return new GoodbyePlace(token);
+        public PlaceTwo getPlace(final String token) {
+            return new PlaceTwo(token);
         }
     }
 
