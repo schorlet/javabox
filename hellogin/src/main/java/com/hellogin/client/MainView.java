@@ -2,7 +2,6 @@ package com.hellogin.client;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
@@ -10,8 +9,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.hellogin.client.activity.SouthActivityMapper;
+import com.google.web.bindery.event.shared.EventBus;
 import com.hellogin.client.activity.CenterActivityMapper;
+import com.hellogin.client.activity.SouthActivityMapper;
 
 /**
  * MainView
@@ -23,24 +23,24 @@ public class MainView extends Composite {
     interface MainViewUiBinder extends UiBinder<Widget, MainView> {}
 
     @UiField
-    SimplePanel helloPanel;
+    SimplePanel centerPanel;
 
     @UiField
-    SimplePanel goodbyePanel;
+    SimplePanel southPanel;
 
     @Inject
-    public MainView(final CenterActivityMapper helloActivityMapper,
-        final SouthActivityMapper goodbyeActivityMapper, final EventBus eventBus) {
+    public MainView(final CenterActivityMapper centerActivityMapper,
+        final SouthActivityMapper southActivityMapper, final EventBus eventBus) {
 
         initWidget(uiBinder.createAndBindUi(this));
 
-        final ActivityManager helloActivityManager = new ActivityManager(helloActivityMapper,
+        final ActivityManager centerActivityManager = new ActivityManager(centerActivityMapper,
             eventBus);
-        helloActivityManager.setDisplay(helloPanel);
+        centerActivityManager.setDisplay(centerPanel);
 
-        final ActivityManager goodbyeActivityManager = new ActivityManager(goodbyeActivityMapper,
+        final ActivityManager southActivityManager = new ActivityManager(southActivityMapper,
             eventBus);
-        goodbyeActivityManager.setDisplay(goodbyePanel);
+        southActivityManager.setDisplay(southPanel);
 
     }
 

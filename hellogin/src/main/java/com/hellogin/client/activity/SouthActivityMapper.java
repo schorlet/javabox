@@ -1,18 +1,17 @@
 package com.hellogin.client.activity;
 
+import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.hellogin.client.place.BasePlace;
-import com.hellogin.client.place.PlaceTwo;
 import com.hellogin.client.place.PlaceOne;
-import com.hellogin.client.view.GoodbyeActivity;
-import com.hellogin.client.view.HelloActivity;
+import com.hellogin.client.place.PlaceTwo;
 
 /**
- * GoodbyeActivityMapper
+ * SouthActivityMapper
  */
 public class SouthActivityMapper implements ActivityMapper {
     final ActivityFactory activityFactory;
@@ -24,18 +23,17 @@ public class SouthActivityMapper implements ActivityMapper {
 
     @Override
     public Activity getActivity(final Place place) {
-        GWT.log("GoodbyeActivityMapper.getActivity: " + place);
+        AbstractActivity activity = null;
 
         if (place instanceof PlaceOne) {
-            final GoodbyeActivity goodbye = activityFactory.goodbye((BasePlace) place);
-            return goodbye;
+            activity = activityFactory.goodbyeActivity((BasePlace) place);
 
         } else if (place instanceof PlaceTwo) {
-            final HelloActivity hello = activityFactory.hello((BasePlace) place);
-            return hello;
+            activity = activityFactory.helloActivity((BasePlace) place);
         }
 
-        return null;
+        GWT.log("SouthActivityMapper [place: " + place + ", activity: " + activity + "]");
+        return activity;
     }
 
 }

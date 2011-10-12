@@ -5,12 +5,14 @@ import com.hellogin.client.view.GoodbyeActivity;
 import com.hellogin.client.view.HelloActivity;
 
 /**
- * ActivityFactory
+ * ActivityFactory.
+ *
+ * create activities with the given place
  */
 public interface ActivityFactory {
 
-    HelloActivity hello(final BasePlace place);
+    HelloActivity helloActivity(final BasePlace place);
 
-    GoodbyeActivity goodbye(final BasePlace place);
+    GoodbyeActivity goodbyeActivity(final BasePlace place);
 
 }
