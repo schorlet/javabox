@@ -1,4 +1,4 @@
-package com.hellogin.client.ui;
+package com.hellogin.client.view;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;

@@ -1,9 +1,7 @@
-package com.hellogin.client.mvp;
+package com.hellogin.client.place;
 
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.gwt.place.shared.WithTokenizers;
-import com.hellogin.client.place.GoodbyePlace;
-import com.hellogin.client.place.HelloPlace;
 
 /**
  * PlaceHistoryMapper interface is used to attach all places which the

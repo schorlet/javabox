@@ -1,4 +1,4 @@
-package com.hellogin.client.ui;
+package com.hellogin.client;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.GWT;
@@ -10,8 +10,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.hellogin.client.mvp.GoodbyeActivityMapper;
-import com.hellogin.client.mvp.HelloActivityMapper;
+import com.hellogin.client.activity.GoodbyeActivityMapper;
+import com.hellogin.client.activity.HelloActivityMapper;
 
 /**
  * MainView

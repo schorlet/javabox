@@ -9,14 +9,14 @@ import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.hellogin.client.MainView;
 import com.hellogin.client.activity.ActivityFactory;
-import com.hellogin.client.mvp.AppPlaceHistoryMapper;
-import com.hellogin.client.mvp.GoodbyeActivityMapper;
-import com.hellogin.client.mvp.HelloActivityMapper;
+import com.hellogin.client.activity.GoodbyeActivityMapper;
+import com.hellogin.client.activity.HelloActivityMapper;
+import com.hellogin.client.place.AppPlaceHistoryMapper;
 import com.hellogin.client.place.HelloPlace;
-import com.hellogin.client.ui.GoodbyeView;
-import com.hellogin.client.ui.HelloView;
-import com.hellogin.client.ui.MainView;
+import com.hellogin.client.view.GoodbyeView;
+import com.hellogin.client.view.HelloView;
 
 /**
  * HelloGinModule
