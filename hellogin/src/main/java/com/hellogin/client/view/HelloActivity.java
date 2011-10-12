@@ -1,4 +1,4 @@
-package com.hellogin.client.activity;
+package com.hellogin.client.view;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
@@ -13,7 +13,6 @@ import com.google.inject.assistedinject.AssistedInject;
 import com.hellogin.client.place.BasePlace;
 import com.hellogin.client.place.GoodbyePlace;
 import com.hellogin.client.place.HelloPlace;
-import com.hellogin.client.ui.HelloView;
 
 /**
  * HelloActivity

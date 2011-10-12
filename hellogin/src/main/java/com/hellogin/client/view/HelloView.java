@@ -1,4 +1,4 @@
-package com.hellogin.client.ui;
+package com.hellogin.client.view;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;

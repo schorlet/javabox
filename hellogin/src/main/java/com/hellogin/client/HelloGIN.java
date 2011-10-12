@@ -5,7 +5,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.hellogin.client.gin.HelloGinjector;
-import com.hellogin.client.ui.MainView;
 
 /**
  * HelloGIN

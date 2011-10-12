@@ -1,4 +1,4 @@
-package com.hellogin.client.activity;
+package com.hellogin.client.view;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.hellogin.client.place.BasePlace;
-import com.hellogin.client.ui.GoodbyeView;
 
 /**
  * GoodbyeActivity
