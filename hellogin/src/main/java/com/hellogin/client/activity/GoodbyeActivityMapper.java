@@ -6,8 +6,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.hellogin.client.place.BasePlace;
-import com.hellogin.client.place.GoodbyePlace;
-import com.hellogin.client.place.HelloPlace;
+import com.hellogin.client.place.PlaceTwo;
+import com.hellogin.client.place.PlaceOne;
 import com.hellogin.client.view.GoodbyeActivity;
 import com.hellogin.client.view.HelloActivity;
 
@@ -26,11 +26,11 @@ public class GoodbyeActivityMapper implements ActivityMapper {
     public Activity getActivity(final Place place) {
         GWT.log("GoodbyeActivityMapper.getActivity: " + place);
 
-        if (place instanceof HelloPlace) {
+        if (place instanceof PlaceOne) {
             final GoodbyeActivity goodbye = activityFactory.goodbye((BasePlace) place);
             return goodbye;
 
-        } else if (place instanceof GoodbyePlace) {
+        } else if (place instanceof PlaceTwo) {
             final HelloActivity hello = activityFactory.hello((BasePlace) place);
             return hello;
         }

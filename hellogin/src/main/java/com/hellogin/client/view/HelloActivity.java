@@ -11,8 +11,8 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.hellogin.client.place.BasePlace;
-import com.hellogin.client.place.GoodbyePlace;
-import com.hellogin.client.place.HelloPlace;
+import com.hellogin.client.place.PlaceTwo;
+import com.hellogin.client.place.PlaceOne;
 
 /**
  * HelloActivity
@@ -39,11 +39,11 @@ public class HelloActivity extends AbstractActivity {
         goodByeHandler = view.goodBye().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                if (place instanceof HelloPlace) {
-                    placeController.goTo(new GoodbyePlace(place.getName()));
+                if (place instanceof PlaceOne) {
+                    placeController.goTo(new PlaceTwo(place.getName()));
 
-                } else if (place instanceof GoodbyePlace) {
-                    placeController.goTo(new HelloPlace(place.getName()));
+                } else if (place instanceof PlaceTwo) {
+                    placeController.goTo(new PlaceOne(place.getName()));
                 }
             }
         });
