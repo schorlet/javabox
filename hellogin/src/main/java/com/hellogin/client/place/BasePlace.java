@@ -6,21 +6,39 @@ import com.google.gwt.place.shared.Place;
  * BasePlace
  */
 public abstract class BasePlace extends Place {
-    private final String name;
+    private final String prefix;
+    private final String suffix;
 
-    BasePlace(final String name) {
-        this.name = name;
+    protected BasePlace(final String prefix, final String suffix) {
+        this.prefix = prefix;
+        this.suffix = suffix;
     }
 
-    public String getName() {
-        return name;
+    public final String getPrefix() {
+        return prefix;
+    }
+
+    public final String getSuffix() {
+        return suffix;
+    }
+
+    public final String getToken() {
+        return prefix + suffix;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("BasePlace [").append(getToken()).append("]");
+        return builder.toString();
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (name == null ? 0 : name.hashCode());
+        result = prime * result + (prefix == null ? 0 : prefix.hashCode());
+        result = prime * result + (suffix == null ? 0 : suffix.hashCode());
         return result;
     }
 
@@ -30,9 +48,12 @@ public abstract class BasePlace extends Place {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         final BasePlace other = (BasePlace) obj;
-        if (name == null) {
-            if (other.name != null) return false;
-        } else if (!name.equals(other.name)) return false;
+        if (prefix == null) {
+            if (other.prefix != null) return false;
+        } else if (!prefix.equals(other.prefix)) return false;
+        if (suffix == null) {
+            if (other.suffix != null) return false;
+        } else if (!suffix.equals(other.suffix)) return false;
         return true;
     }
 

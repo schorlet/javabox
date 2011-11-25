@@ -23,7 +23,7 @@ public class GoodbyeActivity extends AbstractActivity {
 
     @Override
     public void start(final AcceptsOneWidget containerWidget, final EventBus eventBus) {
-        goodbyeView.setName(place.getName());
+        goodbyeView.setSuffix(place.getSuffix());
         containerWidget.setWidget(goodbyeView.asWidget());
     }
 }

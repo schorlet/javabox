@@ -8,6 +8,6 @@
   <g:HTMLPanel>
     Hello,
     <span class="{style.important}" ui:field="nameSpan" />
-    <g:Anchor ui:field="goodbyeLink" text="Say good-bye"></g:Anchor>
+    <g:InlineHyperlink ui:field="goodbyeLink" text="Say good-bye"></g:InlineHyperlink>
   </g:HTMLPanel>
 </ui:UiBinder>

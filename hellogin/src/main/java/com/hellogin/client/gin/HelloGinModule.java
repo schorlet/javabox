@@ -25,11 +25,11 @@ public class HelloGinModule extends AbstractGinModule {
 
     @Override
     protected void configure() {
+        // install ActivityFactory (create activities with the current place)
+        install(new GinFactoryModuleBuilder().build(ActivityFactory.class));
+
         // EventBus
         bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
-
-        // PlaceHistoryMapper (needed by PlaceHistoryHandler)
-        bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
 
         // ActivityMapper (depends on ActivityFactory)
         // get an Activity for the current Place
@@ -41,8 +41,8 @@ public class HelloGinModule extends AbstractGinModule {
         bind(HelloView.class).in(Singleton.class);
         bind(MainView.class).in(Singleton.class);
 
-        // install ActivityFactory (create activities with the current place)
-        install(new GinFactoryModuleBuilder().build(ActivityFactory.class));
+        // PlaceHistoryMapper (needed by PlaceHistoryHandler)
+        bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
     }
 
     @Provides
