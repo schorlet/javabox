@@ -2,12 +2,11 @@ package com.hellogin.client.view;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.InlineHyperlink;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -23,18 +22,18 @@ public class HelloView extends Composite {
     SpanElement nameSpan;
 
     @UiField
-    Anchor goodbyeLink;
+    InlineHyperlink goodbyeLink;
 
     public HelloView() {
         initWidget(uiBinder.createAndBindUi(this));
     }
 
-    public void setName(final String name) {
-        nameSpan.setInnerText(name);
+    public void setSuffix(final String suffix) {
+        nameSpan.setInnerText(suffix);
     }
 
-    public HasClickHandlers goodBye() {
-        return goodbyeLink;
+    public void setToken(final String token) {
+        goodbyeLink.setTargetHistoryToken(token);
     }
 
 }

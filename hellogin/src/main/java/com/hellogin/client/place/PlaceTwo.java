@@ -1,26 +1,13 @@
 package com.hellogin.client.place;
 
-import com.google.gwt.place.shared.PlaceTokenizer;
-
 /**
  * PlaceTwo
  */
 public class PlaceTwo extends BasePlace {
+    static final String PREFIX = "Two//";
 
-    public PlaceTwo(final String token) {
-        super(token);
-    }
-
-    public static class Tokenizer implements PlaceTokenizer<PlaceTwo> {
-        @Override
-        public String getToken(final PlaceTwo place) {
-            return place.getName();
-        }
-
-        @Override
-        public PlaceTwo getPlace(final String token) {
-            return new PlaceTwo(token);
-        }
+    public PlaceTwo(final String suffix) {
+        super(PREFIX, suffix);
     }
 
 }

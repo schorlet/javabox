@@ -17,7 +17,7 @@ public class GoodbyeView extends Composite {
         initWidget(viewPanel);
     }
 
-    public void setName(final String name) {
-        nameSpan.setInnerText("Good-bye, " + name);
+    public void setSuffix(final String suffix) {
+        nameSpan.setInnerText("Good-bye, " + suffix);
     }
 }

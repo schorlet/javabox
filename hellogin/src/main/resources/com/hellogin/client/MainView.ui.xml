@@ -25,28 +25,23 @@
   <g:DockLayoutPanel unit='EM'>
     <g:north size='5'>
       <g:FlowPanel styleName="{style.northPanel}">
-        <g:Label>This is the NORTH panel</g:Label>
       </g:FlowPanel>
     </g:north>
     <g:west size='15'>
       <g:FlowPanel styleName="{style.westPanel}">
-        <g:Label>This is the WEST panel</g:Label>
       </g:FlowPanel>
     </g:west>
     <g:center>
       <g:FlowPanel styleName="{style.centerPanel}">
-        <g:Label>This is the CENTER panel</g:Label>
         <g:SimplePanel ui:field="centerPanel" />
       </g:FlowPanel>
     </g:center>
     <g:east size='15'>
       <g:FlowPanel styleName="{style.eastPanel}">
-        <g:Label>This is the EAST panel</g:Label>
       </g:FlowPanel>
     </g:east>
     <g:south size="5">
       <g:FlowPanel styleName="{style.southPanel}">
-        <g:Label>This is the SOUTH panel</g:Label>
         <g:SimplePanel ui:field="southPanel" />
       </g:FlowPanel>
     </g:south>
