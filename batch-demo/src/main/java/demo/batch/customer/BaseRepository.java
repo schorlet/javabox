@@ -14,10 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.Order;
 import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.PathMetadata;
-import com.mysema.query.types.PathMetadataFactory;
+import com.mysema.query.types.expr.StringExpression;
 import com.mysema.query.types.path.EntityPathBase;
-import com.mysema.query.types.path.StringPath;
+import com.mysema.query.types.template.StringTemplate;
 
 /**
  * BaseRepository
@@ -80,8 +79,7 @@ public abstract class BaseRepository<E, ID extends Serializable> {
 
     public List<E> randomList(final int count) {
         // RAND() is h2 specific
-        final PathMetadata<String> property = PathMetadataFactory.forVariable("RAND()");
-        final StringPath target = new StringPath(property);
+        final StringExpression target = StringTemplate.create("RAND()");
         final OrderSpecifier<String> orderSpecifier = new OrderSpecifier<String>(Order.ASC, target);
 
         return new JPAQuery(entityManager).from(getEntityPathBase()).orderBy(orderSpecifier)
