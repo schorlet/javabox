@@ -1,0 +1,71 @@
+input[type=text] {
+	border-style: inset;
+}
+input {
+	height: 20px;
+	border-width: 1px;
+	font-family: Arial Unicode MS,Arial,sans-serif;
+    font-size: small;
+}
+
+/* imgButton */
+.imgButton {
+	padding: 1px;
+	z-index: 99;
+}
+.imgButton2 {
+    padding: 1px;
+    z-index: 99;
+}
+.imgButton .gwt-Anchor {
+	cursor: default !important;
+}
+.imgButton img:hover {
+	border: 1px lightgray outset;
+}
+.imgButton img:active {
+	border: 1px gray inset;
+}
+.imgButton2 img {
+    border: 1px lightgray outset;
+}
+.imgButton2 img:active {
+    border: 1px gray inset;
+}
+.imgButton2 .gwt-Anchor {
+    cursor: default !important;
+}
+
+/* MainView panels */
+.eastPanel {
+	background-color: #F60;
+}
+.westPanel {
+	background-color: #3C9;
+}
+.northPanel {
+	background-color: #39F;
+}
+.southPanel {
+	background-color: #9CF;
+}
+.centerPanel {
+	background-color: #FFC;
+}
+
+/* .gwt- */
+.gwt-Anchor {
+	cursor: pointer;
+}
+input[type=button],button,.gwt-Button {
+    height: 23px !important;
+    background: #E2E2DE !important;
+    border: 1px lightgray outset !important;
+    line-height: 19px !important;
+    padding: 0px 5px 2px 5px !important;
+    cursor: default !important;
+}
+input[type=button]:active,button:active,.gwt-Button:active {
+    background: #C0C0BC !important;
+    border: 1px gray inset !important;
+}

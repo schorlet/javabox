@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+  <persistence-unit name="dataStore" transaction-type="RESOURCE_LOCAL">
+
+    <class>demo.hello.shared.cell.CellEntity</class>
+
+    <properties>
+      <property name="hibernate.hbm2ddl.auto" value="create" /><!-- create update -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+
+      <property name="hibernate.connection.url" value="jdbc:h2:file:target/test" />
+      <property name="hibernate.connection.driver_class" value="org.h2.Driver" />
+      <property name="hibernate.connection.username" value="sa" />
+      <property name="hibernate.connection.password" value="" />
+
+      <property name="hibernate.current_session_context_class" value="thread" />
+      <property name="hibernate.order_updates" value="true" />
+
+    </properties>
+  </persistence-unit>
+</persistence>
