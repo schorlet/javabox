@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM
+"http://google-web-toolkit.googlecode.com/svn/trunk/distro-source/core/src/gwt-module.dtd">
+<module rename-to="test">
+  <inherits name="demo.hello.HelloModule" />
+  <inherits name="com.google.gwt.junit.JUnit" />
+
+  <entry-point class="demo.hello.client.ModuleTestGwt" />
+  <source path="client" />
+</module>

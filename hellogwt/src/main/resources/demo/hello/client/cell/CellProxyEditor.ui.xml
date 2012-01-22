@@ -1,0 +1,36 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:d="urn:import:com.google.gwt.user.datepicker.client">
+
+  <g:LayoutPanel width="100%">
+    <g:layer left="2%" right="72%" top="6px" height="20px">
+      <g:Label>A</g:Label>
+    </g:layer>
+    <g:layer left="30%" right="2%" top="2px" height="24px">
+      <g:TextBox ui:field="a" width="100%" />
+    </g:layer>
+
+    <g:layer left="2%" right="72%" top="32px" height="20px">
+      <g:Label>B</g:Label>
+    </g:layer>
+    <g:layer left="30%" right="2%" top="28px" height="24px">
+      <g:TextBox ui:field="b_box" width="100%" />
+    </g:layer>
+
+    <g:layer left="2%" right="72%" top="58px" height="20px">
+      <g:Label>C</g:Label>
+    </g:layer>
+    <g:layer left="30%" right="2%" top="54px" height="24px">
+      <g:CheckBox ui:field="c" width="100%" />
+    </g:layer>
+
+
+    <g:layer left="2%" right="72%" top="84px" height="20px">
+      <g:Label>D</g:Label>
+    </g:layer>
+    <g:layer left="30%" right="2%" top="80px" height="24px">
+      <d:DateBox ui:field="d" width="100%" />
+    </g:layer>
+  </g:LayoutPanel>
+
+</ui:UiBinder> 
