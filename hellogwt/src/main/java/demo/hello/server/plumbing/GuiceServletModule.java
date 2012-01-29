@@ -11,6 +11,7 @@ public class GuiceServletModule extends ServletModule {
     @Override
     public void configureServlets() {
         serve("/gwtRequest").with(RequestFactoryServlet.class);
+        filter("/gwtRequest").through(GuicePersistFilter.class);
     }
 
 }
