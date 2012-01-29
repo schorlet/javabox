@@ -45,11 +45,12 @@ public class GuiceContextListener extends GuiceServletContextListener {
     public void contextInitialized(final ServletContextEvent servletContextEvent) {
         super.contextInitialized(servletContextEvent);
 
+        // start the underlying persistence engine
         final Injector injector = getInjectorContext(servletContextEvent);
-
-        logger.info("start PersistService");
+        logger.info("starting PersistService");
         injector.getInstance(PersistService.class).start();
 
+        // fillSomeCellEntity
         fillSomeCellEntity(injector);
 
         // jul-to-slf4j bridge
@@ -59,8 +60,11 @@ public class GuiceContextListener extends GuiceServletContextListener {
 
     @Override
     public void contextDestroyed(final ServletContextEvent servletContextEvent) {
-        logger.info("stop PersistService");
+        // stop the underlying persistence engine
+        logger.info("stoping PersistService");
         getInjectorContext(servletContextEvent).getInstance(PersistService.class).stop();
+
+        // jul-to-slf4j bridge
         SLF4JBridgeHandler.uninstall();
 
         super.contextDestroyed(servletContextEvent);

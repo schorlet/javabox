@@ -17,6 +17,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import demo.hello.shared.FilterConstraint;
 import demo.hello.shared.FilterConstraintOpEnum;
@@ -29,25 +30,25 @@ import demo.hello.shared.plumbing.ProjectEntityFinder;
  */
 public class SuperRepository<T extends SuperEntity> implements ProjectEntityFinder {
 
-    final EntityManager entityManager;
+    final Provider<EntityManager> entityManager;
 
     @Inject
-    protected SuperRepository(final EntityManager entityManager) {
-        this.entityManager = entityManager;
+    protected SuperRepository(final Provider<EntityManager> provider) {
+        this.entityManager = provider;
     }
 
     /**
      * @param domainObject the domainObject
      */
     public void persist(final T domainObject) {
-        entityManager.persist(domainObject);
+        entityManager.get().persist(domainObject);
     }
 
     /**
      * @param domainObject the domainObject
      */
     public T merge(final T domainObject) {
-        return entityManager.merge(domainObject);
+        return entityManager.get().merge(domainObject);
     }
 
     /**
@@ -55,11 +56,12 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
      */
     public void remove(final T domainObject) {
         final Object merge = merge(domainObject);
-        entityManager.remove(merge);
+        entityManager.get().remove(merge);
     }
 
     public int clear(final Class<? extends SuperEntity> domainClass) {
-        final Query query = entityManager.createQuery("delete from " + domainClass.getSimpleName());
+        final Query query = entityManager.get().createQuery(
+            "delete from " + domainClass.getSimpleName());
         return query.executeUpdate();
     }
 
@@ -79,7 +81,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
      */
     @Override
     public SuperEntity find(final Class<? extends SuperEntity> domainClass, final Integer id) {
-        return entityManager.find(domainClass, id);
+        return entityManager.get().find(domainClass, id);
     }
 
     /**
@@ -97,7 +99,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
      * @return a list of domainObject
      */
     public List<T> list(final Class<T> domainClass, final String jpql, final Object... args) {
-        final TypedQuery<T> query = entityManager.createQuery(jpql, domainClass);
+        final TypedQuery<T> query = entityManager.get().createQuery(jpql, domainClass);
 
         for (int i = 0; i < args.length; i++) {
             query.setParameter(i + 1, args[i]);
@@ -112,7 +114,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
      * @return a list of domainObject
      */
     public List<T> list(final Class<T> domainClass, final Set<FilterConstraint> filterConstraints) {
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final CriteriaBuilder criteriaBuilder = entityManager.get().getCriteriaBuilder();
         final CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(domainClass);
 
         // select from
@@ -123,7 +125,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
         filterQuery(criteriaBuilder, criteriaQuery, from, filterConstraints);
 
         // create query from criteria query
-        final TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
+        final TypedQuery<T> query = entityManager.get().createQuery(criteriaQuery);
 
         return query.getResultList();
     }
@@ -137,7 +139,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
     public List<T> list(final Class<T> domainClass, final Set<FilterConstraint> filterConstraints,
         final Set<SortConstraint> sortConstraints) {
 
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final CriteriaBuilder criteriaBuilder = entityManager.get().getCriteriaBuilder();
         final CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(domainClass);
 
         // select from
@@ -151,7 +153,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
         sortQuery(criteriaBuilder, criteriaQuery, from, sortConstraints);
 
         // create query from criteria query
-        final TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
+        final TypedQuery<T> query = entityManager.get().createQuery(criteriaQuery);
 
         return query.getResultList();
     }
@@ -179,7 +181,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
     public List<T> list(final Class<T> domainClass, final int start, final int end,
         final Set<FilterConstraint> filterConstraints, final Set<SortConstraint> sortConstraints) {
 
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final CriteriaBuilder criteriaBuilder = entityManager.get().getCriteriaBuilder();
         final CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(domainClass);
 
         // select from
@@ -193,7 +195,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
         sortQuery(criteriaBuilder, criteriaQuery, from, sortConstraints);
 
         // create query from criteria query
-        final TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
+        final TypedQuery<T> query = entityManager.get().createQuery(criteriaQuery);
 
         // pagination
         query.setFirstResult(start);
@@ -207,8 +209,8 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
      * @return the total number of domainObject
      */
     public Long count(final Class<T> domainClass) {
-        return entityManager.createQuery(
-            "select count(p) from " + domainClass.getSimpleName() + " p", Long.class)
+        return entityManager.get()
+            .createQuery("select count(p) from " + domainClass.getSimpleName() + " p", Long.class)
             .getSingleResult();
     }
 
@@ -219,7 +221,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
      */
     public Long count(final Class<T> domainClass, final Set<FilterConstraint> filterConstraints) {
 
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final CriteriaBuilder criteriaBuilder = entityManager.get().getCriteriaBuilder();
         final CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
 
         // select count from
@@ -231,7 +233,7 @@ public class SuperRepository<T extends SuperEntity> implements ProjectEntityFind
         filterQuery(criteriaBuilder, criteriaQuery, from, filterConstraints);
 
         // create query from criteria query
-        final TypedQuery<Long> query = entityManager.createQuery(criteriaQuery);
+        final TypedQuery<Long> query = entityManager.get().createQuery(criteriaQuery);
         return query.getSingleResult();
     }
 

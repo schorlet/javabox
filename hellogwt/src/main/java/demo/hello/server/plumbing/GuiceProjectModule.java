@@ -40,7 +40,7 @@ public class GuiceProjectModule extends AbstractModule {
 
         // DomainLocator
         bind(Locator.class).to(ProjectDomainLocator.class).in(Singleton.class);
-        bind(ProjectEntityFinder.class).to(SuperRepository.class);
+        bind(ProjectEntityFinder.class).to(SuperRepository.class).in(Singleton.class);
 
         // ExceptionHandler
         bind(ExceptionHandler.class).to(DefaultExceptionHandler.class).in(Singleton.class);
@@ -56,8 +56,8 @@ public class GuiceProjectModule extends AbstractModule {
 
         bind(ValidatorFactory.class).toInstance(Validation.buildDefaultValidatorFactory());
 
-        bind(CellRepository.class);
-        bind(CellManager.class);
+        bind(CellRepository.class).in(Singleton.class);
+        bind(CellManager.class).in(Singleton.class);
     }
 
 }
