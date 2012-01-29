@@ -115,7 +115,7 @@ public class DataListView extends ResizeComposite {
 
     /**
      * createTable.
-     * 
+     *
      * @return a CellTable with: SingleSelectionModel, PageSize=5
      */
     CellTable<CellDTO> createTable() {
@@ -271,7 +271,9 @@ public class DataListView extends ResizeComposite {
         final Column<CellDTO, CellDTO> column = new Column<CellDTO, CellDTO>(
             new ActionCell<CellDTO>(messages.edit(), new Delegate<CellDTO>() {
                 public void execute(final CellDTO row) {
-                    Logger.logp(Level.INFO, "DataListView", "Edit", row.getSummary());
+                    Logger.logpf(Level.INFO, "DataListView", "Edit",
+                        "a: %s, b: %s, c: %s, d: %tT", row.getA(), row.getB(), row.getC(),
+                        row.getD());
                     eventHub.fireFromSource(new CellEditEvent(row), CellEventSource.DATA_LIST_VIEW);
                 }
 
