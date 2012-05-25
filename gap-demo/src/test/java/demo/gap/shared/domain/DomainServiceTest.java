@@ -59,7 +59,7 @@ public abstract class DomainServiceTest {
     public void testGap() {
         logger.debug("testGap");
 
-        final Set<Gap> newGaps = MemDomainUtil.newGaps();
+        final Set<Gap> newGaps = MemDomainUtil.randomGaps();
         Assert.assertEquals(3, newGaps.size());
         gapService.addAll(newGaps);
         Assert.assertFalse(gapService.isEmpty());
@@ -71,7 +71,7 @@ public abstract class DomainServiceTest {
         final Set<Gap> byFilter = gapService.getByFilter(new Filter());
         Assert.assertEquals(gaps, byFilter);
 
-        final Gap newGap = MemDomainUtil.newGap();
+        final Gap newGap = MemDomainUtil.randomGap();
         gapService.add(newGap);
 
         final Set<Gap> gaps2 = gapService.getGaps();
@@ -82,7 +82,7 @@ public abstract class DomainServiceTest {
     public void testActivity() {
         logger.debug("testActivity");
 
-        final Activity newActivity = MemDomainUtil.newActivity();
+        final Activity newActivity = MemDomainUtil.randomActivity();
         final Gap newGap = newActivity.getGap();
         gapService.add(newGap);
         activityService.add(newActivity);
@@ -136,8 +136,6 @@ public abstract class DomainServiceTest {
         final Set<Activity> activities = activityService.getByFilter(filter);
         Filter.merge(gaps, activities);
 
-        // final Set<Gap> gaps2 = filter.gaps(gaps);
-
         for (final Gap gap : gaps) {
             Assert.assertEquals(version, gap.getVersion());
             final Set<Activity> set = gap.getActivities();
@@ -160,9 +158,9 @@ public abstract class DomainServiceTest {
     public void testCrud() {
         logger.debug("test4");
 
-        final Gap gap = MemDomainUtil.newGap();
-        final Activity activity1 = MemDomainUtil.newActivity(gap);
-        final Activity activity2 = MemDomainUtil.newActivity(gap);
+        final Gap gap = MemDomainUtil.randomGap();
+        final Activity activity1 = MemDomainUtil.randomActivity(gap);
+        final Activity activity2 = MemDomainUtil.randomActivity(gap);
         gapService.add(gap);
         activityService.add(activity1);
         activityService.add(activity2);
@@ -185,7 +183,7 @@ public abstract class DomainServiceTest {
         Assert.assertTrue(gap2.remove(activity2));
 
         // test add activity
-        final Activity activity3 = MemDomainUtil.newActivity(gap2);
+        final Activity activity3 = MemDomainUtil.randomActivity(gap2);
         activityService.add(activity3);
 
         final Gap gap3 = gapService.getById(gap2.getId());
@@ -207,7 +205,7 @@ public abstract class DomainServiceTest {
     public void testFilter2() {
         logger.debug("testFilter2");
 
-        final Gap gap = MemDomainUtil.newGap();
+        final Gap gap = MemDomainUtil.randomGap();
         final String version = gap.getVersion();
         gapService.add(gap);
 
@@ -230,7 +228,7 @@ public abstract class DomainServiceTest {
         list = getByFilter("CHTS", -10, 10, version);
         Assert.assertEquals(1, list.size());
 
-        final Activity activity = MemDomainUtil.newActivity(gap);
+        final Activity activity = MemDomainUtil.randomActivity(gap);
         activity.setUser("RCTC");
         gap.add(activity);
         gapService.add(gap);

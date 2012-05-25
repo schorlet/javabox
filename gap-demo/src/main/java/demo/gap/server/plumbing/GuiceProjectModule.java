@@ -13,6 +13,9 @@ import demo.gap.server.jpa.JpaUserService;
 import demo.gap.shared.domain.service.ActivityService;
 import demo.gap.shared.domain.service.GapService;
 import demo.gap.shared.domain.service.UserService;
+import demo.gap.shared.mem.MemActivityService;
+import demo.gap.shared.mem.MemGapService;
+import demo.gap.shared.mem.MemUserService;
 
 /**
  * GuiceProjectModule
@@ -21,6 +24,10 @@ public class GuiceProjectModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        configureJpa();
+    }
+
+    void configureJpa() {
         // JpaPersistModule
         install(new JpaPersistModule("dataStore"));
         bind(ValidatorFactory.class).toInstance(Validation.buildDefaultValidatorFactory());
@@ -28,10 +35,12 @@ public class GuiceProjectModule extends AbstractModule {
         bind(GapService.class).to(JpaGapService.class).in(Singleton.class);
         bind(ActivityService.class).to(JpaActivityService.class).in(Singleton.class);
         bind(UserService.class).to(JpaUserService.class).in(Singleton.class);
+    }
 
-        // bind(GapService.class).to(MemGapService.class).in(Singleton.class);
-        // bind(ActivityService.class).to(MemActivityService.class).in(Singleton.class);
-        // bind(UserService.class).to(MemUserService.class).in(Singleton.class);
+    void configureMem() {
+        bind(GapService.class).to(MemGapService.class).in(Singleton.class);
+        bind(ActivityService.class).to(MemActivityService.class).in(Singleton.class);
+        bind(UserService.class).to(MemUserService.class).in(Singleton.class);
     }
 
 }

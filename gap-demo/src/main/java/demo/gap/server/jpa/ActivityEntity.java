@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Range;
  * ActivityEntity
  */
 @Entity
-public class ActivityEntity {
+class ActivityEntity {
     @Id
     String id;
 
@@ -37,8 +37,8 @@ public class ActivityEntity {
 
     ActivityEntity() {}
 
-    public ActivityEntity(final String id, final GapEntity gap, final UserEntity user,
-        final Date day, final Float time) {
+    ActivityEntity(final String id, final GapEntity gap, final UserEntity user, final Date day,
+        final Float time) {
         assert id != null : "id must not be null";
         assert gap != null : "gap must not be null";
         assert user != null : "user must not be null";
@@ -52,41 +52,41 @@ public class ActivityEntity {
         this.time = time;
     }
 
-    public String getId() {
+    String getId() {
         return id;
     }
 
-    public GapEntity getGap() {
+    GapEntity getGap() {
         return gap;
     }
 
-    public void setGap(final GapEntity gap) {
+    void setGap(final GapEntity gap) {
         this.gap = gap;
     }
 
-    public UserEntity getUser() {
+    UserEntity getUser() {
         return user;
     }
 
-    public void setUser(final UserEntity user) {
+    void setUser(final UserEntity user) {
         assert user != null : "user must not be null";
         this.user = user;
     }
 
-    public Date getDay() {
+    Date getDay() {
         return day;
     }
 
-    public void setDay(final Date day) {
+    void setDay(final Date day) {
         assert day != null : "day must not be null";
         this.day = day;
     }
 
-    public Float getTime() {
+    Float getTime() {
         return time;
     }
 
-    public void setTime(final Float time) {
+    void setTime(final Float time) {
         assert time != null : "time must not be null";
         this.time = time;
     }

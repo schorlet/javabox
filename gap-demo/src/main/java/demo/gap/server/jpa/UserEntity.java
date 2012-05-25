@@ -10,7 +10,7 @@ import javax.persistence.Id;
  */
 @Entity
 @Cacheable
-public class UserEntity {
+class UserEntity {
     @Id
     String user;
 
@@ -22,34 +22,34 @@ public class UserEntity {
 
     UserEntity() {}
 
-    public UserEntity(final String user, final String firstname, final String lastname) {
+    UserEntity(final String user, final String firstname, final String lastname) {
         assert user != null : "user must not be null";
         this.user = user;
         this.firstname = firstname;
         this.lastname = lastname;
     }
 
-    public UserEntity(final String user) {
+    UserEntity(final String user) {
         this(user, null, null);
     }
 
-    public String getUser() {
+    String getUser() {
         return user;
     }
 
-    public String getFirstname() {
+    String getFirstname() {
         return firstname;
     }
 
-    public void setFirstname(final String firstname) {
+    void setFirstname(final String firstname) {
         this.firstname = firstname;
     }
 
-    public String getLastname() {
+    String getLastname() {
         return lastname;
     }
 
-    public void setLastname(final String lastname) {
+    void setLastname(final String lastname) {
         this.lastname = lastname;
     }
 

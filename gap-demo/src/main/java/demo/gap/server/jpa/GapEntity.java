@@ -9,7 +9,7 @@ import javax.persistence.Id;
  * GapEntity
  */
 @Entity
-public class GapEntity {
+class GapEntity {
     @Id
     String id;
 
@@ -22,11 +22,11 @@ public class GapEntity {
 
     GapEntity() {}
 
-    public GapEntity(final String id, final String version) {
+    GapEntity(final String id, final String version) {
         this(id, version, null);
     }
 
-    public GapEntity(final String id, final String version, final String description) {
+    GapEntity(final String id, final String version, final String description) {
         assert id != null : "id must not be null";
         assert version != null : "version must not be null";
 
@@ -35,28 +35,28 @@ public class GapEntity {
         this.description = description;
     }
 
-    public String getId() {
+    String getId() {
         return id;
     }
 
-    public void setId(final String id) {
+    void setId(final String id) {
         this.id = id;
     }
 
-    public String getVersion() {
+    String getVersion() {
         return version;
     }
 
-    public void setVersion(final String version) {
+    void setVersion(final String version) {
         assert version != null : "version must not be null";
         this.version = version;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
-    public void setDescription(final String description) {
+    void setDescription(final String description) {
         this.description = description;
     }
 

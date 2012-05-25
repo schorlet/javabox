@@ -21,9 +21,9 @@ public class SampleData {
         userService.addAll(MemDomainUtil.getUsers());
 
         for (int i = 0; i < 8; i++) {
-            final Set<Gap> gaps = MemDomainUtil.newGapsWithActivities();
+            final Set<Gap> gaps = MemDomainUtil.randomGapsWithActivities();
             gapService.addAll(gaps);
-            gapService.addAll(MemDomainUtil.newGaps());
+            gapService.addAll(MemDomainUtil.randomGaps());
 
             for (final Gap gap : gaps) {
                 activityService.addAll(gap.getActivities());

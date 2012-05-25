@@ -19,7 +19,7 @@ public class GuiceServletModule extends ServletModule {
         bindJersey();
     }
 
-    public void bindJersey() {
+    void bindJersey() {
         install(new JerseyServletModule());
 
         // Route all requests through GuiceContainer

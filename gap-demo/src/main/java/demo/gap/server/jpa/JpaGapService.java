@@ -88,7 +88,7 @@ public class JpaGapService implements GapService {
     public Gap getById(final String id) {
         logger.trace("getById {}", id);
 
-        final Set<Gap> gaps = getByFilter(new Filter().byId(id));
+        final Set<Gap> gaps = getByFilter(new Filter().byGapId(id));
 
         if (gaps.isEmpty()) return null;
         else return gaps.iterator().next();
@@ -106,8 +106,8 @@ public class JpaGapService implements GapService {
         query.select(gap);
 
         // where
-        if (filter.getId() != null) {
-            query.where(criteria.equal(gap.get(GapEntity_.id), filter.getId()));
+        if (filter.getGapId() != null) {
+            query.where(criteria.equal(gap.get(GapEntity_.id), filter.getGapId()));
 
         }
         if (filter.getVersion() != null) {

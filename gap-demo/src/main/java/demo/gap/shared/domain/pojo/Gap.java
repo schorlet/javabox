@@ -136,7 +136,11 @@ public class Gap implements ActivityService, Iterable<Activity> {
 
     @Override
     public Set<Activity> getByGapId(final String gapid) {
-        return getByFilter(new Filter().byGapId(gapid));
+        final Set<Activity> copy = new HashSet<Activity>();
+        if (id.equals(gapid)) {
+            copy.addAll(activities);
+        }
+        return copy;
     }
 
     @Override

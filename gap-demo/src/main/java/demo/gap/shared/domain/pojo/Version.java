@@ -1,6 +1,6 @@
 package demo.gap.shared.domain.pojo;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -16,7 +16,7 @@ public class Version implements Comparable<Version> {
         this.version = version;
     }
 
-    @XmlElement
+    @XmlAttribute(required = true)
     public String getVersion() {
         return version;
     }

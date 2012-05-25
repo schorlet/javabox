@@ -16,7 +16,42 @@ import demo.gap.shared.domain.pojo.User;
  */
 class JpaDomainUtil {
 
-    public static Set<Gap> buildGapSet(final List<GapEntity> entities) {
+    /*
+     * users
+     */
+
+    static Set<User> buildUsers(final List<UserEntity> entities) {
+        final Set<User> users = new HashSet<User>(entities.size());
+
+        for (final UserEntity entity : entities) {
+            users.add(new User(entity.getUser(), entity.getFirstname(), entity.getLastname()));
+        }
+
+        return users;
+    }
+
+    private static UserEntity buildUserEntity(final String user, final EntityManager entityManager) {
+        return buildUserEntity(new User(user), entityManager);
+    }
+
+    static UserEntity buildUserEntity(final User user, final EntityManager entityManager) {
+        UserEntity entity = entityManager.find(UserEntity.class, user.getUser());
+
+        if (entity == null) {
+            entity = new UserEntity(user.getUser());
+        }
+
+        entity.setFirstname(user.getFirstname());
+        entity.setLastname(user.getLastname());
+
+        return entity;
+    }
+
+    /*
+     * gaps
+     */
+
+    static Set<Gap> buildGapSet(final List<GapEntity> entities) {
         final Set<Gap> gaps = new HashSet<Gap>();
 
         for (final GapEntity entity : entities) {
@@ -30,11 +65,35 @@ class JpaDomainUtil {
         return new Gap(entity.getId(), entity.getVersion(), entity.getDescription());
     }
 
+    static List<GapEntity> buildGapEntities(final Set<Gap> gaps, final EntityManager entityManager) {
+
+        final List<GapEntity> entities = new ArrayList<GapEntity>();
+
+        for (final Gap gap : gaps) {
+            entities.add(buildGapEntity(gap, entityManager));
+        }
+
+        return entities;
+    }
+
+    static GapEntity buildGapEntity(final Gap gap, final EntityManager entityManager) {
+        GapEntity entity = entityManager.find(GapEntity.class, gap.getId());
+
+        if (entity == null) {
+            entity = new GapEntity(gap.getId(), gap.getVersion());
+        }
+
+        entity.setVersion(gap.getVersion());
+        entity.setDescription(gap.getDescription());
+
+        return entity;
+    }
+
     /*
-     * 
+     * activities
      */
 
-    public static Set<Activity> buildActivities(final List<ActivityEntity> entities) {
+    static Set<Activity> buildActivities(final List<ActivityEntity> entities) {
         final Set<Activity> activities = new HashSet<Activity>();
 
         for (final ActivityEntity entity : entities) {
@@ -52,54 +111,7 @@ class JpaDomainUtil {
             entity.getTime());
     }
 
-    /*
-     * 
-     */
-
-    public static Set<User> buildUsers(final List<UserEntity> entities) {
-        final Set<User> users = new HashSet<User>(entities.size());
-
-        for (final UserEntity entity : entities) {
-            users.add(new User(entity.getUser(), entity.getFirstname(), entity.getLastname()));
-        }
-
-        return users;
-    }
-
-    /*
-     * // //////////////////////////
-     */
-
-    public static List<GapEntity> buildGapEntities(final Set<Gap> gaps,
-        final EntityManager entityManager) {
-
-        final List<GapEntity> entities = new ArrayList<GapEntity>();
-
-        for (final Gap gap : gaps) {
-            entities.add(buildGapEntity(gap, entityManager));
-        }
-
-        return entities;
-    }
-
-    public static GapEntity buildGapEntity(final Gap gap, final EntityManager entityManager) {
-        GapEntity entity = entityManager.find(GapEntity.class, gap.getId());
-
-        if (entity == null) {
-            entity = new GapEntity(gap.getId(), gap.getVersion());
-        }
-
-        entity.setVersion(gap.getVersion());
-        entity.setDescription(gap.getDescription());
-
-        return entity;
-    }
-
-    /*
-     * 
-     */
-
-    public static ActivityEntity buildActivityEntity(final Activity activity,
+    static ActivityEntity buildActivityEntity(final Activity activity,
         final EntityManager entityManager) {
 
         final GapEntity gapEntity = entityManager.find(GapEntity.class, activity.getGap().getId());
@@ -121,27 +133,6 @@ class JpaDomainUtil {
         }
 
         return activityEntity;
-    }
-
-    /*
-     * 
-     */
-
-    private static UserEntity buildUserEntity(final String user, final EntityManager entityManager) {
-        return buildUserEntity(new User(user), entityManager);
-    }
-
-    public static UserEntity buildUserEntity(final User user, final EntityManager entityManager) {
-        UserEntity entity = entityManager.find(UserEntity.class, user.getUser());
-
-        if (entity == null) {
-            entity = new UserEntity(user.getUser());
-        }
-
-        entity.setFirstname(user.getFirstname());
-        entity.setLastname(user.getLastname());
-
-        return entity;
     }
 
 }
