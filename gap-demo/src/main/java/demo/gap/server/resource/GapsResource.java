@@ -11,7 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.ws.Action;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +69,6 @@ public class GapsResource {
     }
 
     @DELETE
-    @Action(input = "delete")
     public Response delete() {
         logger.debug("delete");
         SampleData.reset(gapService, activityService, userService);
@@ -109,7 +107,7 @@ public class GapsResource {
 
         logger.debug("getByUser {} {} {} {}", new Object[] { username, from, to, version });
 
-        final Set<Gap> gaps = getGaps(username, from, to, version);
+        final Set<Gap> gaps = getGaps(version);
         final Set<Activity> activities = getActivities(username, from, to, version);
         Filter.merge(gaps, activities);
 
@@ -125,7 +123,7 @@ public class GapsResource {
 
         logger.debug("getByUserHtml {} {} {} {}", new Object[] { username, from, to, version });
 
-        final Set<Gap> gaps = getGaps(username, from, to, version);
+        final Set<Gap> gaps = getGaps(version);
         final Set<Activity> activities = getActivities(username, from, to, version);
         Filter.merge(gaps, activities);
 
@@ -166,9 +164,7 @@ public class GapsResource {
         return activities;
     }
 
-    private Set<Gap> getGaps(final String username, final Integer from, final Integer to,
-        final String version) {
-
+    private Set<Gap> getGaps(final String version) {
         final Filter filter = new Filter().byVersion(version);
         return gapService.getByFilter(filter);
     }

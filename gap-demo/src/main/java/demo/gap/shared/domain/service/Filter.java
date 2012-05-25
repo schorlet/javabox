@@ -2,9 +2,7 @@ package demo.gap.shared.domain.service;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -19,6 +17,9 @@ import demo.gap.shared.domain.pojo.Gap;
  * Filter
  */
 public final class Filter {
+
+    static final Logger logger = LoggerFactory.getLogger(Filter.class);
+
     private String id;
     private String gapid;
     private String version;
@@ -125,6 +126,10 @@ public final class Filter {
         return builder.append("]").toString();
     }
 
+    /*
+     * filter builders 
+     */
+
     public Filter byId(final String id) {
         this.id = id;
         return this;
@@ -186,42 +191,9 @@ public final class Filter {
         return b.after(a) || equals(a, b);
     }
 
-    public boolean apply(final Activity activity) {
-        logger.trace("apply {} on {}", this.toString(), activity);
-
-        if (notNull(getId()) && activity.getId().equals(getId())) return true;
-        else if (notNull(getId())) return false;
-
-        boolean add = true;
-
-        if (add && notNull(getGapId())) {
-            add = equals(getGapId(), activity.getGap().getId());
-        }
-
-        if (add && notNull(getStartDate())) {
-            add = gte(getStartDate(), activity.getDay());
-        }
-
-        if (add && notNull(getEndDate())) {
-            add = gte(activity.getDay(), getEndDate());
-        }
-
-        if (add && notNull(getDay())) {
-            add = equals(activity.getDay(), getDay());
-        }
-
-        if (add && notNull(getUser())) {
-            add = equals(activity.getUser(), getUser());
-        }
-
-        if (add && notNull(getVersion())) {
-            add = equals(activity.getVersion(), getVersion());
-        }
-
-        return add;
-    }
-
-    static final Logger logger = LoggerFactory.getLogger(Filter.class);
+    /*
+     * apply on activities
+     */
 
     public Set<Activity> activities(final Set<Activity> activities) {
         final Set<Activity> copy = new HashSet<Activity>();
@@ -237,6 +209,45 @@ public final class Filter {
 
         return copy;
     }
+
+    public boolean apply(final Activity activity) {
+        logger.trace("apply {} on {}", this.toString(), activity);
+
+        if (notNull(getId()) && activity.getId().equals(getId())) return true;
+        else if (notNull(getId())) return false;
+
+        boolean add = true;
+
+        if (add && notNull(getGapId())) {
+            add = equals(getGapId(), activity.getGap().getId());
+        }
+
+        if (add && notNull(getVersion())) {
+            add = equals(activity.getVersion(), getVersion());
+        }
+
+        if (add && notNull(getUser())) {
+            add = equals(activity.getUser(), getUser());
+        }
+
+        if (add && notNull(getStartDate())) {
+            add = gte(getStartDate(), activity.getDay());
+        }
+
+        if (add && notNull(getEndDate())) {
+            add = gte(activity.getDay(), getEndDate());
+        }
+
+        if (add && notNull(getDay())) {
+            add = equals(activity.getDay(), getDay());
+        }
+
+        return add;
+    }
+
+    /*
+     * apply on gaps
+     */
 
     public Set<Gap> gaps(final Set<Gap> gaps) {
         final Set<Gap> copy = new HashSet<Gap>();
@@ -270,11 +281,8 @@ public final class Filter {
     public boolean apply(final Gap gap) {
         logger.trace("apply {} on {}", this.toString(), gap);
 
-        if (getId() != null && gap.getId().equals(getId())) return true;
-        else if (getId() != null) {
-            gap.clear();
-            return false;
-        }
+        if (getGapId() != null && gap.getId().equals(getGapId())) return true;
+        else if (getGapId() != null) return false;
 
         boolean add = true;
 
@@ -294,10 +302,6 @@ public final class Filter {
             add = apply(gap, new Filter().byDayInterval(getStartDate(), getEndDate()));
         }
 
-        if (!add) {
-            gap.clear();
-        }
-
         return add;
     }
 
@@ -310,29 +314,30 @@ public final class Filter {
         return true;
     }
 
-    public static void merge(final Set<Gap> gaps, final Set<Activity> activities) {
-        final Map<String, Gap> map = new HashMap<String, Gap>();
-        for (final Gap gap : gaps) {
-            map.put(gap.getId(), gap);
-            gap.clear();
-        }
+    /*
+     * merge 
+     */
 
+    public static void merge(final Set<Gap> gaps, final Set<Activity> activities) {
         for (final Activity activity : activities) {
-            map.get(activity.getGap().getId()).add(activity);
+            merge(gaps, activity);
         }
     }
 
     public static void merge(final Set<Gap> gaps, final Activity activity) {
         final Gap gap = activity.getGap();
-        if (gaps.remove(gap)) {
-            gap.clear();
-            gap.add(activity);
-            gaps.add(gap);
+
+        if (gaps.contains(gap)) {
+            for (final Gap gap2 : gaps) {
+                if (gap2.equals(gap)) {
+                    merge(gap2, activity);
+                    break;
+                }
+            }
         }
     }
 
     public static void merge(final Gap gap, final Activity activity) {
-        gap.clear();
         gap.add(activity);
     }
 

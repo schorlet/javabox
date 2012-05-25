@@ -54,7 +54,7 @@ public class MemGapService implements GapService {
     public Gap getById(final String id) {
         logger.trace("getById {}", id);
 
-        final Set<Gap> gaps = getByFilter(new Filter().byId(id));
+        final Set<Gap> gaps = getByFilter(new Filter().byGapId(id));
 
         if (gaps.isEmpty()) return null;
         else {
@@ -69,25 +69,27 @@ public class MemGapService implements GapService {
 
         final Set<Gap> copy = new LinkedHashSet<Gap>();
 
-        final boolean idIsNotNull = Filter.notNull(filter.getId());
+        final boolean idIsNotNull = Filter.notNull(filter.getGapId());
         final boolean versionIsNotNull = Filter.notNull(filter.getVersion());
 
         for (final Gap gap : gaps_) {
-            final boolean add = filter.apply(gap);
+            final Gap gap2 = MemDomainUtil.copy(gap);
+            final boolean add = filter.apply(gap2);
+            gap2.clear();
 
             if (add && idIsNotNull) {
-                copy.add(gap);
+                copy.add(gap2);
                 break;
 
             } else if (add) {
-                copy.add(gap);
+                copy.add(gap2);
 
             } else if (!idIsNotNull && !versionIsNotNull) {
-                copy.add(gap);
+                copy.add(gap2);
 
             } else if (!idIsNotNull && versionIsNotNull) {
-                if (Filter.equals(filter.getVersion(), gap.getVersion())) {
-                    copy.add(gap);
+                if (Filter.equals(filter.getVersion(), gap2.getVersion())) {
+                    copy.add(gap2);
                 }
             }
         }
@@ -118,12 +120,15 @@ public class MemGapService implements GapService {
         logger.trace("add {}", gap);
 
         if (gaps_.contains(gap)) {
-            final Gap byId = getById(gap.getId());
-            byId.setVersion(gap.getVersion());
-            byId.setDescription(gap.getDescription());
+            for (final Gap entry : gaps_) {
+                if (entry.equals(gap)) {
+                    entry.setVersion(gap.getVersion());
+                    entry.setDescription(gap.getDescription());
+                    break;
+                }
+            }
 
         } else {
-            gap.clear();
             gaps_.add(gap);
         }
     }

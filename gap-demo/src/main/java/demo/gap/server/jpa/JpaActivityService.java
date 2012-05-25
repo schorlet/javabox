@@ -65,6 +65,7 @@ public class JpaActivityService implements ActivityService {
         else return activities.iterator().next();
     }
 
+    @Override
     public Set<Activity> getByGapId(final String gapid) {
         return getByFilter(new Filter().byGapId(gapid));
     }

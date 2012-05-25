@@ -33,11 +33,11 @@ public class MemServiceTest extends DomainServiceTest {
     @Test
     public void testFilter() {
         // newActivity
-        final Activity newActivity = MemDomainUtil.newActivity();
+        final Activity newActivity = MemDomainUtil.randomActivity();
         filterActivity(false, newActivity, newActivity);
 
         // newActivity2
-        final Activity newActivity2 = MemDomainUtil.newActivity();
+        final Activity newActivity2 = MemDomainUtil.randomActivity();
         newActivity2.setDay(MemDomainUtil.nextDay(newActivity.getDay(), 10));
         newActivity2.setUser(newActivity.getUser().replaceFirst("\\w", "Z"));
         newActivity2.getGap().setVersion(newActivity.getVersion().replaceFirst("\\d", "2"));
@@ -57,7 +57,7 @@ public class MemServiceTest extends DomainServiceTest {
         filterGap(false, newGap, newGap3);
 
         // newActivity
-        final Activity newActivity3 = MemDomainUtil.newActivity(newGap3);
+        final Activity newActivity3 = MemDomainUtil.randomActivity(newGap3);
         newGap3.add(newActivity3);
         filterGap(false, newGap, newGap3);
 
@@ -91,23 +91,27 @@ public class MemServiceTest extends DomainServiceTest {
         final Date fromDay = MemDomainUtil.nextDay(activity.getDay(), -1);
         final Date toDay = MemDomainUtil.nextDay(activity.getDay(), 1);
 
-        Assert.assertTrue(xor ^ new Filter().byId(gap.getId()).apply(gap2));
-        Assert.assertTrue(xor ^ new Filter().byUser(activity.getUser()).apply(gap2));
-        Assert.assertTrue(xor ^ new Filter().byVersion(gap.getVersion()).apply(gap2));
-        Assert.assertTrue(xor ^ new Filter().byDay(activity.getDay()).apply(gap2));
-        Assert.assertTrue(xor ^ new Filter().byDayInterval(fromDay, toDay).apply(gap2));
+        Assert.assertTrue(xor ^ new Filter().byGapId(gap.getId()).apply(MemDomainUtil.copy(gap2)));
+        Assert.assertTrue(xor
+            ^ new Filter().byUser(activity.getUser()).apply(MemDomainUtil.copy(gap2)));
+        Assert.assertTrue(xor
+            ^ new Filter().byVersion(gap.getVersion()).apply(MemDomainUtil.copy(gap2)));
+        Assert.assertTrue(xor
+            ^ new Filter().byDay(activity.getDay()).apply(MemDomainUtil.copy(gap2)));
+        Assert.assertTrue(xor
+            ^ new Filter().byDayInterval(fromDay, toDay).apply(MemDomainUtil.copy(gap2)));
 
         final Filter filter2 = new Filter().byUser(activity.getUser());
-        Assert.assertTrue(xor ^ filter2.apply(gap2));
+        Assert.assertTrue(xor ^ filter2.apply(MemDomainUtil.copy(gap2)));
 
         filter2.byVersion(gap.getVersion());
-        Assert.assertTrue(xor ^ filter2.apply(gap2));
+        Assert.assertTrue(xor ^ filter2.apply(MemDomainUtil.copy(gap2)));
 
         filter2.byDay(activity.getDay());
-        Assert.assertTrue(xor ^ filter2.apply(gap2));
+        Assert.assertTrue(xor ^ filter2.apply(MemDomainUtil.copy(gap2)));
 
         filter2.byDayInterval(fromDay, toDay);
-        Assert.assertTrue(xor ^ filter2.apply(gap2));
+        Assert.assertTrue(xor ^ filter2.apply(MemDomainUtil.copy(gap2)));
 
         if (!xor) {
             new Filter().byDayInterval(fromDay, toDay).apply(gap2);
