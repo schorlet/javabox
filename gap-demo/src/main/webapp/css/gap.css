@@ -6,7 +6,7 @@ input,select {
 
 body {
 	font-size: 62.5%;
-	font-family: "Segoe UI", "Arial", sans-serif;
+	font-family: Lucida Sans,Arial,sans-serif;
 	min-width: 780px;
 	max-width: 1260px;
 	margin: 20px 40px;
