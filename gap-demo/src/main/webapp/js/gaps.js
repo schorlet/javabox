@@ -92,11 +92,12 @@ var AppGaps = {
 		      $(nRow).data('gapid', aData.id);
 		      $(nRow).css('height', '21px');
 	      },
-	      iDisplayLength : 10,
+	      iDisplayLength : 25,
+		   iScrollLoadGap : 0,
 	      sAjaxDataProp : 'gaps',
 	      sAjaxSource : '/resource/gaps',
-	      sPaginationType : 'two_button', // full_numbers
-	      sScrollY : '240'
+	      sPaginationType : 'two_button',
+	      sScrollY : '400'
 	   });
 
 	   // toggle gap details image
