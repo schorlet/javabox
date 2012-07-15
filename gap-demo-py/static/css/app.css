@@ -1,0 +1,147 @@
+input,select {
+	border-width: 1px;
+	margin: 2px;
+	padding: 4px;
+}
+
+body {
+	font-size: 62.5%;
+	font-family: "Segoe UI", "Arial", sans-serif;
+	min-width: 780px;
+	max-width: 1260px;
+	margin: 20px 40px;
+}
+
+.width2 {
+	width: 18%;
+	/*border : 1px solid grey;*/
+}
+
+.width3 {
+	width: 28%;
+	/*border : 1px solid grey;*/
+}
+
+.width4 {
+	width: 38%;
+	/*border : 1px solid grey;*/
+}
+
+.width5 {
+	width: 48%;
+	/*border : 1px solid grey;*/
+}
+
+.width6 {
+	width: 58%;
+	/*border : 1px solid grey;*/
+}
+
+.width8 {
+	width: 78%;
+	/*border : 1px solid grey;*/
+}
+
+.width9 {
+	width: 88%;
+	/*border : 1px solid grey;*/
+}
+
+.width10 {
+	width: 98%;
+	/*border : 1px solid grey;*/
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.center_text {
+	text-align: center;
+}
+
+.inline {
+	display: inline;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+/* search_init */
+input.search_init {
+	display: block;
+	width: 92%;
+}
+
+select.search_init {
+	display: block;
+	width: 92%;
+}
+
+/* form */
+input.form {
+	display: block;
+	width: 98%;
+}
+label.error {
+	float: none;
+	color: red;
+	padding-left: .5em;
+	vertical-align: top;
+	font-weight: bold
+}
+
+/* editable_text */
+td label.editable_text,label.editable_select {
+	display: inline-block;
+	width: 95%;
+}
+
+td label.editable_select form.select_editable {
+	font-size: 9px;
+	overflow: visible;
+	white-space: nowrap;
+}
+
+td label.editable_select form.select_editable select,button {
+	margin: 0px;
+	padding: 0px;
+	display: inline;
+}
+
+td label.editable_text form.input_editable {
+	font-size: 12px;
+	overflow: visible;
+	white-space: nowrap;
+}
+
+td label.editable_text form.input_editable input {
+	margin: 0px;
+	padding: 1px;
+	display: inline-block;
+}
+
+/* datatable */
+tr.empty a,tr.empty {
+	color: #999;
+}
+
+div.DataTables_sort_wrapper span.DataTables_sort_icon.ui-icon {
+	display: inline-block;
+}
+
+span.ui-icon-trash {
+	margin: 1px;
+}
+
+span.ui-icon-trash:hover {
+	margin: 0px;
+	border: 1px #999 outset;
+}
+
+span.ui-icon-trash:active {
+	margin: 0px;
+	border: 1px #999 inset;
+}
