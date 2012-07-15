@@ -1,0 +1,12 @@
+virtualenv env --no-site-packages --verbose
+source env/bin/activate
+#deactivate
+
+pip install web.py
+
+python start.py
+
+
+
+sqlite3 -bail -interactive gaps.sqlite < sql/tables.sql
+

@@ -1,0 +1,50 @@
+$var title: gaps.html
+
+<div class="width9 center ui-widget">
+    <div class="ui-widget">
+        <button id="reset-button" class="ui-button">Reset</button>
+        <button id="reload-button" class="ui-button">Reload</button>
+        <button id="create-gap-button" class="ui-button">Create new Gap</button>
+    </div>
+    <br />
+    <table id="gaps-table" class="ui-widget-content">
+        <thead>
+            <th width="2%"></th>
+            <th width="15%">id</th>
+            <th width="12%">version</th>
+            <th width="71%">description</th>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot class="ui-widget">
+            <th>
+                <input type="hidden" />
+            </th>
+            <th>
+                <input type="text" placeholder="Search id" class="search_init ui-widget" />
+            </th>
+            <th>
+                <select id="versions_select" class="search_init ui-widget"></select>
+            </th>
+            <th>
+                <input type="text" placeholder="Search description" class="search_init ui-widget" />
+            </th>
+        </tfoot>
+    </table>
+</div>
+
+<div id="gap-dialog" title="Edit Gap" class="ui-widget ui-state-focus">
+    <div class="ui-widget">
+        <form id="gap-form">
+            <label for="gapid">id</label>
+            <input type="text" id="gapid" class="form center ui-state-disabled" required="required" disabled="disabled" />
+
+            <label for="version">version</label>
+            <input type="text" id="version" name="version" class="form center" pattern="\d\.\d\.\d" required="required" />
+
+            <label for="description">description</label>
+            <input type="text" id="description" name="description" class="form center" />
+        </form>
+    </div>
+</div>
+

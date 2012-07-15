@@ -1,0 +1,101 @@
+$var title: activities.html
+
+<div class="width9 center ui-widget">
+    <!-- time_ms -->
+    <div id="time_ms" class="center" style="text-align: center;">
+        request(<label id="request_ms"></label>)
+        template(<label id="template_gaps_ms"></label>)
+        datatable(<label id="create_datatable_ms"></label>)
+    </div>
+
+    <!-- (html/json, user, version) selection -->
+    <div class="ui-widget" class="width10">
+        <div style="float: left" class="width2">
+            <br />
+            <input type="radio" id="dataType1" name="dataType" value="json" class="inline" checked="checked" />
+            <label for="dataType1">json</label>
+            <input type="radio" id="dataType2" name="dataType" value="html" class="inline" />
+            <label for="dataType2">html</label>
+        </div>
+        <div style="float: left" class="width4">
+            <label for="users_select">users</label>
+            <select id="users_select" class="width10"></select>
+        </div>
+        <div style="float: right" class="width4">
+            <label for="versions_select">versions</label>
+            <select id="versions_select" class="width10"></select>
+        </div>
+    </div>
+
+    <!-- date_range label -->
+    <p class="ui-widget" style="clear: both">
+        <label id="date_range"></label>
+    </p>
+
+    <!-- gaps table -->
+    <div style="width: 100%; height: 100%">
+        <table id="gaps-table" class="ui-widget-content">
+            <thead>
+                <th>id</th>
+                <th>version</th>
+                <th>description</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- gaps/activities jqote2 template -->
+<script type="text/html" id="gaps-table-template">
+    <![CDATA[
+        <table id="gaps-table" class="ui-widget-content">
+        <thead>
+            <th style="width: 2%;">id</th>
+            <th style="width: 2%;">version</th>
+            <th style="width: 2%;">description</th>
+            <% for (var i = 0; i < this.days.length; i++) {
+                var alt = this.days[i][1] == 1;
+                var dayf = this.days[i][0];
+                if (alt) {%><th  day="<%= dayf %>" style="width: 1%; font-weight:bold"><%= dayf %></th>
+                <% } else {%><th day="<%= dayf %>" style="width: 1%; font-weight:normal"><%= dayf %></th>
+            <% }} %>
+        </thead>
+        <tbody>
+            <%
+            for (var a in this.gaps) {
+                var gap = this.gaps[a];
+                var empty = gap.activities == null || gap.activities.length == 0;
+                var empty_class = empty ? ' class="empty"' : '';
+            %>
+            <tr gap="<%= gap.id %>" style="height: 21px;"<%= empty_class %>>
+                <td><a class="edit-gap" href="<%= gap.link %>"><%= gap.id %></a></td>
+                <td style="text-align: center"><%= gap.version %></td>
+                <td><%= gap.description %></td>
+                <%
+                for (var i = 0; i < this.days.length; i++) { %>
+                    <td style="text-align: center">
+                    <% if (empty) { %>
+                        <label class="editable_select"></label>
+                    <% } else {
+                        var dayf = this.days[i][0];
+                        var indices = [];
+                        this.activities.forEach(function(activity, index, array) {
+                            if (activity.day == dayf && activity.gap_id == gap.id) {
+                                indices.push(index); %>
+                                <label class="editable_select" activity="<%= activity.link %>"><%= activity.time %></label>
+                        <% }});
+                        if (indices.length == 0) { %>
+                            <label class="editable_select"></label>
+                        <% } else {
+                            indices.forEach(function(i) { this.activities.splice(i, 1); }, this);
+                        }} %>
+                    </td>
+                <% } %>
+            </tr>
+            <% } %>
+        </tbody>
+        </table>
+    ]]>
+</script>
+

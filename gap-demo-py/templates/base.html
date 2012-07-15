@@ -1,0 +1,37 @@
+$def with (page)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" href="/static/css/app.css" rel="stylesheet" />
+    <link type="text/css" href="/static/css/jquery.dataTables.css" rel="stylesheet" />
+    <link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/redmond/jquery-ui.css" rel="stylesheet" />
+    <title>
+    $page.title
+    </title>
+</head>
+
+<body>
+    $:page
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+
+    <script src="/static/js/lib/jquery.dataTables-1.9.0.min.js"></script>
+    <script src="/static/js/lib/jquery.jeditable.js"></script>
+
+    $if page.title == 'index.html':
+        <script src="/static/js/index.js"></script>
+    $elif page.title == 'gaps.html':
+        <script src="/static/js/lib/jquery.h5validate.js"></script>
+        <script src="/static/js/gaps.js"></script>
+    $elif page.title == 'activities.html':
+        <script src="/static/js/lib/jquery.dataTables.FixedColumns.min.js"></script>
+        <script src="/static/js/lib/jquery.jqote2.min.js"></script>
+        <script src="/static/js/lib/moment-1.5.0.min.js"></script>
+        <script src="/static/js/activities.pagination.js"></script>
+        <script src="/static/js/activities.js"></script>
+
+</body>
+</html>
