@@ -1,6 +1,5 @@
 virtualenv env --no-site-packages --verbose
 source env/bin/activate
-#deactivate
 
 pip install web.py
 
