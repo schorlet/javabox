@@ -1,0 +1,49 @@
+<div>
+    <form id="edit_activity">
+        <table border="0" width="100%">
+        <thead>
+            <colgroup>
+                <col style="width:20%; text-align:left" />
+                <col style="width:80%; text-align:left" />
+            </colgroup>
+        </thead>
+        <tbody>
+            <tr>
+                <td><label for="id">id</label></td>
+                <td><input type="text" id="id" name="id" class="width9"
+                    required="required" disabled="disabled"
+                    value="<%- id %>" /></td>
+            </tr>
+            <tr>
+                <td><label for="version">version</label></td>
+                <td><select id="version" name="version" class="width9"
+                    required="required">
+                    <option></option>
+                    <option<%= version=='1.7.1' ? " selected='selected'" : "" %>>1.7.1</option>
+                    <option<%= version=='1.7.2' ? " selected='selected'" : "" %>>1.7.2</option>
+                    <option<%= version=='1.7.3' ? " selected='selected'" : "" %>>1.7.3</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td><label for="date">date</label></td>
+                <td><input type="text" id="date" name="date" class="width9"
+                    pattern="(19|20)\d\d[- ](0[1-9]|1[012])[- ](0[1-9]|[12][0-9]|3[01])"
+                    title="yyyy-mm-dd" required="required"
+                    value="<%- date %>" /></td>
+            </tr>
+            <tr>
+                <td><label for="description">description</label></td>
+                <td><input type="text" id="description" name="description" class="width9"
+                    pattern=".{1,200}" title="200 chars"
+                    required="required"
+                    value="<%- description %>" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align="right"><input type="reset" value="cancel" class="width3" />
+                    <input type="submit" value="submit" class="width3" style="margin-right:7%" /></td>
+            </tr>
+        </tbody>
+        </table>
+    </form>
+</div>

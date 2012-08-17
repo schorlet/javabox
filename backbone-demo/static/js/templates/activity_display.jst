@@ -1,0 +1,40 @@
+<div>
+    <table border="0" width="100%">
+        <thead>
+            <colgroup>
+                <col style="width:20%; text-align:left" />
+                <col style="width:80%; text-align:left" />
+            </colgroup>
+        </thead>
+        <tbody>
+            <tr>
+                <td><label for="id">id</label></td>
+                <td><input type="text" id="id" class="width9"
+                    readonly="readonly" value="<%- id %>" /></td>
+            </tr>
+            <tr>
+                <td><label for="version">version</label></td>
+                <td><input type="text" id="version" class="width9"
+                    readonly="readonly" value="<%- version %>" /></td>
+            </tr>
+            <tr>
+                <td><label for="date">date</label></td>
+                <td><input type="text" id="date" class="width9"
+                    readonly="readonly" value="<%- date %>" /></td>
+            </tr>
+            <tr>
+                <td><label for="description">description</label></td>
+                <td><input type="text" id="description" class="width9"
+                    readonly="readonly" value="<%- description %>" /></td>
+            </tr>
+                <tr>
+                    <td></td>
+                    <td align="right">
+                        <input type="button" value="delete" id="delete" class="width3"
+                            style="float:left" />
+                        <input type="button" value="edit" id="edit" class="width3" style="margin-right:7%" />
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</div>

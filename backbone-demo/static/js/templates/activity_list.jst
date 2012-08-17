@@ -1,0 +1,26 @@
+<div>
+    <table border="0" cellspacing="2" cellpadding="2"
+        width="140%" style="margin-left:-10%">
+        <thead>
+            <tr>
+                <th style="width:25%; text-align:left">id</th>
+                <th style="width:10%; text-align:left">version</th>
+                <th style="width:20%; text-align:left">date</th>
+                <th style="width:45%; text-align:left">description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each(activities, function(activity) { %>
+            <tr>
+                <td><a href="#activity_display/<%- activity.id %>"><%- activity.id %></a></td>
+                <td><%- activity.version %></td>
+                <td><%- activity.date %></td>
+                <td><%- activity.description %></td>
+            </tr>
+            <% }); %>
+            <tr>
+                <td colspan="4"><a href="#activity_edit">new</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
