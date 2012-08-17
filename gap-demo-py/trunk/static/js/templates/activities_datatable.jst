@@ -3,15 +3,15 @@
         <th style="width: 2%;">id</th>
         <th style="width: 2%;">version</th>
         <th style="width: 2%;">description</th>
-        <% for each (var day in days) {
+        <% _.each(days, function(day) {
             var alt = day.dayofweek == 1;
             if (alt) {%><th  day="<%= day.day %>" style="width: 1%; font-weight:bold"><%= day.title %></th>
             <% } else {%><th day="<%= day.day %>" style="width: 1%; font-weight:normal"><%= day.title %></th>
-        <% }} %>
+        <% }}); %>
     </thead>
     <tbody>
         <%
-        for each (var gap in gaps) {
+        _.each(gaps, function(gap) {
             var empty = gap.activities == null || gap.activities.length == 0;
             var empty_class = empty ? ' class="empty"' : '';
             %>
@@ -20,14 +20,13 @@
                 <td style="text-align: center"><%= gap.version %></td>
                 <td><%= gap.description %></td>
                 <%
-                for each (var day in days) { %>
+                _.each(days, function(day) { %>
                     <td style="text-align: center">
                     <%  if (empty) { %>
                             <label class="editable_select"></label>
                     <%  } else {
-                            var activities = gap.activities.filter(function(value) {
-                                if (value.day == day.day) return true;
-                                else return false;
+                            var activities = _.filter(gap.activities, function(value) {
+                                return value.day == day.day;
                             });
                             if (activities.length > 0) {
                                 var activity = activities[0]; %>
@@ -37,9 +36,9 @@
                             <% }
                         } %>
                     </td>
-                <% } %>
+                <% }); %>
             </tr>
         <%
-        } %>
+        }); %>
     </tbody>
 </table>

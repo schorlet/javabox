@@ -1,20 +1,33 @@
-input,select {
-    border-width: 1px;
-    margin: 2px;
-    padding: 4px;
-}
-
 html {
     height: 90%;
 }
 body {
-    font-size: 62.5%;
-    font-family: "Segoe UI", "Arial", sans-serif;
     min-width: 780px;
     max-width: 1260px;
     margin: 20px 40px;
     height: 100%;
-    background-color: #dadada;
+    font-size: 0.7em;
+    font-family: sans-serif;
+    color: #223;
+    background-color: #cde;
+}
+
+button, input, select, textarea {
+    color: #223;
+    border-width: 1px;
+    vertical-align: baseline;
+    line-height: normal;
+    margin: 2px;
+    padding: 2px;
+}
+input[readonly] {
+    color: #89a;
+    border: 1px dotted #89a;
+    background-color: #def;
+}
+input[disabled] {
+    color: #89a;
+    background-color: #def;
 }
 
 .width2 {

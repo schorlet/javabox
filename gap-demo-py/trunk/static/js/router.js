@@ -4,10 +4,8 @@ define(['models/events', 'jquery', 'underscore', 'backbone'], function(events) {
         console.log('remove: ', this.cid);
 
         this.undelegateEvents();
-        if (this.collection)
-            this.collection.off(null, null, this);
-        if (this.model)
-            this.model.off(null, null, this);
+        if (this.collection) this.collection.off(null, null, this);
+        if (this.model) this.model.off(null, null, this);
         events.off(null, null, this);
 
         if (this.views) {
@@ -27,40 +25,37 @@ define(['models/events', 'jquery', 'underscore', 'backbone'], function(events) {
         },
 
         initialize: function(options) {
-            this.places = {};
-            _.bindAll(this);
+            this.view = null;
         },
 
         showIndex: function() {
-            this.loadModule('main_index', 'wrapper1');
+            this.loadModule('main_index');
         },
 
         showGaps: function() {
-            this.loadModule('main_gaps', 'wrapper1');
+            this.loadModule('main_gaps');
         },
 
         showActivities: function() {
-            this.loadModule('main_activities', 'wrapper1');
+            this.loadModule('main_activities');
         },
 
-        loadModule: function(module, place) {
+        loadModule: function(module) {
+            var place = 'wrapper1';
             console.log('loadModule:', module, ' at ', place);
 
-            if (this.places[place]) {
-                this.places[place].remove();
-                delete this.places[place];
+            if (this.view) {
+                this.view.remove();
+                this.view = null;
             }
 
-            this._place = place;
-            require([module], this.createView);
-        },
-
-        createView: function(View) {
-            var view = new View({
-                el: '#' + this._place
-            }).render();
-            this.places[this._place] = view;
-            return view;
+            require([module], _.bind(function(View) {
+                var view = new View({
+                    el: '#' + place
+                }).render();
+                this.view = view;
+                return view;
+            }, this));
         }
     });
 
